@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import ATMClientSurveyModal from "../atmClientSurvey";
 import KiiHealthFacilitySurveyModal from "../kiiHealthSurvey";
+import KiiLgaSurveyModal from "../kiiLgaSurvey";
 const style = {
   position: "absolute",
   top: "50%",
@@ -13,7 +14,7 @@ const style = {
   maxWidth: 672,
   bgcolor: "background.paper",
   borderRadius: 2,
-  //   border: "2px solid #000",
+  width: "80%", // Set the width to 80% of the parent container's width
   boxShadow: 24,
   p: 2,
 };
@@ -22,8 +23,10 @@ function SelectSurvey(props) {
   const { isOpen, handleClose } = props;
   const [openATMClient, setOpenATMClient] = useState(false);
   const [openKiiHealth, setKiiHealth] = useState(false)
+  const [openKiiLga, setKiiLga] = useState(false)
 
   const toggleATMClientModal = () => setOpenATMClient(!openATMClient);
+  const toggleLgaModal = () => setKiiLga(!openKiiLga);
   const toggleKiiHealthModal = () => {
     console.log('kii helath modal toggled.')
     setKiiHealth(!openKiiHealth)
@@ -41,6 +44,13 @@ function SelectSurvey(props) {
         handleClose={toggleKiiHealthModal}
         name="Kii Health Facility"
       />}
+      {
+        openKiiLga && <KiiLgaSurveyModal
+        isOpen={openKiiLga}
+        handleClose={toggleLgaModal}
+        name="Kii Lga" 
+        />
+      }
       <Modal
         open={isOpen}
         onClose={handleClose}
@@ -67,7 +77,7 @@ function SelectSurvey(props) {
               <Typography component="h3" fontSize="26px" fontWeight={700}>
                 Start a Survey
               </Typography>
-              <Typography fontSize="16px">
+              <Typography fontSize="1em">
                 Choose one of the survey template options below, So you can
                 continue to fill out the survey.
               </Typography>
@@ -133,6 +143,33 @@ function SelectSurvey(props) {
               />
               <Typography component="h4" fontSize="18px" fontWeight="700">
                 KII Health
+              </Typography>
+            </Box>
+          </Box>
+          <Box sx={{ marginTop: 2 }}>
+            <Box
+              sx={{
+                background: "#F2F5FF",
+                display: "flex",
+                gap: "18px",
+                alignItems: "center",
+                padding: "18px",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                toggleLgaModal();
+                // handleClose();
+              }}
+            >
+              <img
+                src={require("../../../assets/icons/template.png")}
+                alt="template"
+                width="31px"
+                height="36px"
+              />
+              <Typography component="h4" fontSize="18px" fontWeight="700">
+                KII LGA
               </Typography>
             </Box>
           </Box>

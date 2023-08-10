@@ -133,3 +133,77 @@ export function unregister() {
       });
   }
 }
+
+
+// This is the service-worker.js file
+
+// Define a unique cache name to avoid conflicts with other service workers
+const CACHE_NAME = 'eims-cache-v1';
+
+// Define an array of URLs to cache for offline use
+const urlsToCache = [
+  '/', // Cache the root URL (index.html) of your app
+  '/static/css/main.chunk.css',
+  '/static/js/main.chunk.js',
+  '/static/js/0.chunk.js',
+  // Add more URLs here as needed...
+
+  '/',
+  'src/app.js',
+  'src/index.js',
+  'src/routes.js',
+  'src/store.js',
+  'src/firebase.js',
+
+  'src/pages/UserDashboardPage.js',
+  'src/pages/UserPage.js',
+  'src/pages/Submission.js',
+  'src/pages/UserPermissions.js',
+  'src/pages/AdminDashboardPage.js',
+  'src/pages/LoginPage.js',
+
+  'src/surveys/clientExitInterview/index.js',
+  'src/surveys/clientExitInterview/data.js',
+
+  'src/surveys/kiiHealthFacility/index.js',
+  'src/surveys/kiiHealthFacility/data.js',
+
+  'src/surveys/kiiLga/index.js',
+  'src/surveys/kiiLga/data.js',
+
+
+];
+
+// Install the service worker and cache the URLs
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(urlsToCache))
+  );
+});
+
+// Activate the service worker and clean up old caches
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
+// Intercept fetch requests and serve cached responses if available
+window.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        return response || fetch(event.request);
+      })
+  );
+});
+

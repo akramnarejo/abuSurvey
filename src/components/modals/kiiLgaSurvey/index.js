@@ -3,21 +3,21 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import KiiHealthFacility from "src/surveys/kiiHealthFacility";
+import KiiLga from "src/surveys/kiiLga";
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: 1200,
-  width: "100%",
-  height: "100%",
+  width: "95%",
+  height: "95%",
   overflow: "auto",
   bgcolor: "#E9E9E9",
   boxShadow: 24,
 };
 
-function KiiHealthFacilitySurveyModal(props) {
+function KiiLgaSurveyModal(props) {
   const { isOpen, handleClose, name } = props;
   return (
     <div>
@@ -43,7 +43,7 @@ function KiiHealthFacilitySurveyModal(props) {
                 sx={{ width: "60px", height: "60px", background: "black" }}
               ></Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography fontSize="16px" color="#4F4F4F">
+                <Typography  color="#4F4F4F">
                   Preview Survey:
                 </Typography>
                 <Typography fontSize="18px" fontWeight="700" color="#4F4F4F">
@@ -68,9 +68,10 @@ function KiiHealthFacilitySurveyModal(props) {
               borderRadius: "5px",
               margin: "20px auto",
               p: 2,
+              font: "1em",
             }}
           >
-            <KiiHealthFacility name={name} startedAt={new Date().toISOString()} />
+            <KiiLga name={name} startedAt={new Date().toISOString()} />
           </Box>
         </Box>
       </Modal>
@@ -78,4 +79,4 @@ function KiiHealthFacilitySurveyModal(props) {
   );
 }
 
-export default KiiHealthFacilitySurveyModal;
+export default KiiLgaSurveyModal;

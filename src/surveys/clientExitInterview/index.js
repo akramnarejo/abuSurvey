@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import "survey-core/modern.min.css";
+import "survey-core/defaultV2.min.css";
 import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { surveyData } from "./data";
@@ -49,6 +49,7 @@ function ATMClientSurvey(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
+            reservedOrg: user?.reservedOrg,
             createdBy: user?.email,
             data: survey,
           });
@@ -59,6 +60,7 @@ function ATMClientSurvey(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
+            reservedOrg: user?.reservedOrg,
             createdBy: user?.email,
             data: survey,
           });

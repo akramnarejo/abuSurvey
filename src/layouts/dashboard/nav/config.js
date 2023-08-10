@@ -20,6 +20,13 @@ const navConfig = [
     path: "/survey",
     icon: icon("ic_user"),
   },
+
+  {
+    title: "File Upload",
+    path: "/file-upload",
+    icon: icon("ic_user"),
+  },
+
   {
     title: "User Permissions",
     path: "/user-permissions",
@@ -28,6 +35,12 @@ const navConfig = [
   {
     title: "Submission",
     path: "/submission",
+    icon: icon("ic_cart"),
+  },
+
+  {
+    title: "File Manager",
+    path: "/admin-filemanager",
     icon: icon("ic_cart"),
   },
   // {

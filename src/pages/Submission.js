@@ -39,13 +39,16 @@ import { shallow } from "zustand/shallow";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useUserAuth } from "src/context";
 import ViewSurveyModal from "src/components/modals/viewModal";
+import { RESERVED_ORGANIZATIONS } from "src/constants";
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: "name", label: "Name", alignRight: false },
-  { id: "organization", label: "Organization", alignRight: false },
+  { id: "name", label: "Survey Type", alignRight: false },
+  { id: "facilityname", label: "Facility Name", alignRight: false },  
+  { id: "organization", label: "ATM Network", alignRight: false },
+  { id: "reservedOrg", label: "Organizations", alignRight: false },
   { id: "started", label: "Started", alignRight: false },
-  { id: "submitted", label: "Submission", alignRight: false },
+  { id: "submitted", label: "Finished", alignRight: false },
   // { id: "status", label: "Status", alignRight: false },
   { id: "option", label: "Option", alignRight: false },
   // { id: "" },
@@ -79,14 +82,16 @@ function applySortFilter(array, comparator, query) {
   if (query) {
     return filter(
       array,
-      (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 || _user.organization.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 || 
+      _user.organization.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      
     );
   }
   return stabilizedThis?.map((el) => el[0]);
 }
 
 export default function Submission() {
-  const { surveys, loading, setLoading, fetchSurveys, getSurveys, setNotify } = useStore(
+  const { surveys, users, loading, setLoading, fetchSurveys, getSurveys, setNotify } = useStore(
     (state) => ({
       surveys: state?.surveys,
       loading: state?.loading,
@@ -94,6 +99,7 @@ export default function Submission() {
       fetchSurveys: state?.fetchSurveys,
       getSurveys: state?.getSurveys,
       setNotify: state?.setNotify,
+      users: state?.users,
     }),
     shallow
   );
@@ -132,12 +138,23 @@ export default function Submission() {
 
   const handleFilterSurveys = (filters) => {
     console.log('--------------handling filter: ', filters)
-    const {organizationFilter, userFilter, dateFrom, dateTo} = filters
+    const {organizationFilter, reservedOrgFilter, userFilter, dateFrom, dateTo} = filters
     // filter by organization
     let previewSurveys = surveys
-    if(organizationFilter || userFilter || dateFrom || dateTo){
+    if(organizationFilter || reservedOrgFilter|| userFilter || dateFrom || dateTo){
+      
       if(organizationFilter){
         previewSurveys = previewSurveys?.filter(item => item?.organization === organizationFilter)
+      }
+      if(reservedOrgFilter){
+        const usersWithReservedOrg = users?.filter(item => item?.reservedOrg === reservedOrgFilter)?.map(item => item?.email)
+        const reservedOrgSurveys = []
+        previewSurveys?.map(item => {
+          if(usersWithReservedOrg?.includes(item?.createdBy)){
+            reservedOrgSurveys.push(item)
+          }
+        })
+        previewSurveys = reservedOrgSurveys
       }
       if(userFilter){
         previewSurveys = previewSurveys?.filter(item => item?.createdBy === userFilter)
@@ -264,7 +281,7 @@ export default function Submission() {
         />
       )}
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User | ATM Network </title>
       </Helmet>
 
       <Container maxWidth="xl">
@@ -363,12 +380,15 @@ export default function Submission() {
                           id,
                           name,
                           organization,
+                          reservedOrg,
                           startedAt,
                           status,
                           submittedAt,
                           avatarUrl,
+                          data,
+                          createdBy,
                         } = row;
-                        const selectedUser = selected.indexOf(name) !== -1;
+                        const selectedUser = selected.indexOf(id) !== -1;
                         return (
                           <TableRow
                             hover
@@ -384,20 +404,23 @@ export default function Submission() {
                             />
                           </TableCell> */}
 
+                          
                             <TableCell component="th" scope="row">
                               <Stack
                                 direction="row"
                                 alignItems="center"
                                 spacing={2}
                               >
+                                
                                 {/* <Avatar alt={name} src={avatarUrl} /> */}
                                 <Typography variant="subtitle2" noWrap>
                                   {name}
                                 </Typography>
                               </Stack>
                             </TableCell>
-
+                            <TableCell align="left">{JSON.parse(data)?.facilityname ?? "-"}</TableCell>
                             <TableCell align="left">{organization}</TableCell>
+                            <TableCell align="left">{users?.find(item => item?.email === createdBy)?.reservedOrg ?? "-"}</TableCell>
                             <TableCell align="left">
                               {startedAt && moment(startedAt).format("lll")}
                             </TableCell>

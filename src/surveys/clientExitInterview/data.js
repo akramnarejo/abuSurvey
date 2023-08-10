@@ -7,6 +7,13 @@ export const surveyData = {
         "Enter the required information below to register, You can change it anytime you want.",
       elements: [
         {
+          name: "facilityname",
+          type: "text",
+          title: "Name of Facility (in Capital Letters)",
+          placeholder: "Enter Name of Facility",
+        },
+
+        {
           type: "text",
           name: "uniqueId",
           title: "Unique ID",

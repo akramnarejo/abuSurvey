@@ -16,19 +16,24 @@ import Iconify from "../../../components/iconify";
 import Select from "react-select";
 import ErrorMessage from "src/utils/errorMessage";
 import SelectStyling from "src/utils/selectStyling";
-import { ORGANIZATIONS, ROLES, STATUS, STATES, LGAs, RESERVED_STATES } from "src/constants";
+import { ORGANIZATIONS, ROLES, STATUS, STATES, LGAs, RESERVED_STATES, RESERVED_ORGANIZATIONS } from "src/constants";
 import { useStore } from "src/store";
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled(Toolbar)(({ theme }) => ({
   height: "auto",
   display: "flex",
-  // flexDirection: "column",
   justifyContent: "space-between",
   alignItems: "flex-start",
   gap: 2,
   padding: theme.spacing(3, 3, 3, 3),
   background: "#F9FAFB",
+
+  // Move the media query styles inside the "sx" prop
+  // Set responsive width using media queries
+  width: { xs: "100%", md: "30%", lg: "20%" },
+
+  // Add additional styles as needed
 }));
 
 const StyledFiltersbar = styled(Toolbar)(({ theme }) => ({
@@ -40,8 +45,8 @@ const StyledFiltersbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
-  width: "30%",
-  height: 40,
+  width: "100%",
+  height: "auto",
   transition: theme.transitions.create(["box-shadow", "width"], {
     easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter,
@@ -73,10 +78,12 @@ export default function UserListToolbar({
 }) {
   const users = useStore((state) => state?.users);
   const surveys = useStore((state) => state?.surveys);
-  const userInfo = useStore(state => state?.userInfo)
+  const userInfo = useStore(state => state?.userInfo);
 
-  const [orgOptions, setOrgOptions] = useState(ORGANIZATIONS)
+
   const [userOptions, setUserOptions] = useState([])
+  const [reservedOrgOptions, setReservedOrgOptions] = useState([])
+  const [reservedOrgFilter, setReservedOrgFilter] = useState(null)
   const [organizationFilter, setOrganizationFilter] = useState(null);
   const [userFilter, setUserFilter] = useState(null);
   const [stateFilter, setStateFilter] = useState(null);
@@ -92,13 +99,28 @@ export default function UserListToolbar({
   }, [])
 
   useEffect(() => {
-    handleFilterSurveys({ organizationFilter, userFilter, dateFrom, dateTo });
-  }, [organizationFilter, userFilter, dateFrom, dateTo]);
+    handleFilterSurveys({ organizationFilter, reservedOrgFilter, userFilter, dateFrom, dateTo });
+  }, [organizationFilter, reservedOrgFilter, userFilter, dateFrom, dateTo]);
 
   useEffect(() => {
     handleFilterUsers({ stateFilter, lgaFilter });
   }, [stateFilter, lgaFilter]);
 
+  useEffect(() => {
+    setReservedOrgOptions(RESERVED_ORGANIZATIONS[organizationFilter])
+  }, [organizationFilter])
+
+
+  const FlexContainer = styled(Box)({
+    display: "flex",
+    flexDirection: "row", // Or "column" if you want the boxes stacked vertically
+    gap: "8px", // Adjust the gap between the boxes as needed
+    flexWrap: "wrap", // Allow boxes to wrap to the next row if needed
+    alignItems: "center",
+    // [theme.breakpoints.down("sm")]: {
+    //   justifyContent: "center", // Center items horizontally on smaller screens
+    // },
+  });
 
   return (
     <StyledRoot
@@ -106,36 +128,51 @@ export default function UserListToolbar({
         ...(numSelected > 0 && {
           color: "primary.main",
           bgcolor: "primary.lighter",
+
+           // Set responsive width using media queries
+        width: { xs: "100%", md: "30%", lg: "20%" },
         }),
-      }}
+        
+      }}     
     >
-      {/* {numSelected > 0 ? (
-        <Typography component="div" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : ( */}
-      {/* <StyledFiltersbar>
-        <Box>Approved</Box>
-        <Box>Reviewed</Box>
-        <Box>Rejected</Box>
-      </StyledFiltersbar> */}
+  
       {window.location.pathname === "/submission" && (
         <div
           style={{
-            width: "70%",
+            width: "100%",
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
             alignItems: 'flex-start',
             justifyContent: 'space-between',
             gap: 2,
             flexWrap: "wrap",
           }}
         >
-          <Box sx={{ width: "100%", display: 'flex', gap: 4 }}>
-            <Box sx={{ width: "20%", height: "40px" }}>
+          
+          <FlexContainer >
+
+          <Box sx={{ width: "100%", display: 'flex',  gap: 2, flexDirection:"row", flexWrap:"wrap"}}>
+            
+            {/* <Box sx={{ width: "100%", height: "40px"}}>
+            <StyledSearch
+            value={filterName}
+            onChange={onFilterName}
+            placeholder="Search..."
+            startAdornment={
+              <InputAdornment position="start">
+                <Iconify
+                icon="eva:search-fill"
+                sx={{ color: "text.disabled", width: 20, height: 20 }}
+                />
+              </InputAdornment>
+              }
+            />     
+            </Box> */}
+
+            <Box sx={{ width: "100%", height: "40px"}}>
               <Select
-                name="organization"
-                placeholder="Organization"
+                name="atmNetwork"
+                placeholder="ATM Network"
                 isClearable
                 options={ORGANIZATIONS?.map((item) => ({
                   label: item.label,
@@ -163,7 +200,30 @@ export default function UserListToolbar({
                 }}
               />
             </Box>
-            <Box sx={{ width: "20%", height: "40px" }}>
+            <Box sx={{ width: "100%", height: "40px"}}>
+              <Select
+                name="organization"
+                placeholder="Organization"
+                isClearable
+                options={reservedOrgOptions ?? []}
+                styles={SelectStyling}
+                // components={{
+                //   IndicatorSeparator: () => null,
+                // }}
+                // isDisabled={userInfo?.role === 'supervisor'}
+                value={reservedOrgOptions?.find(item => item?.value === reservedOrgFilter) ?? null}
+                // onBlur={handleBlur}
+                onChange={e => {
+                  setReservedOrgFilter(e?.value)
+                  if(!e){
+                    setReservedOrgFilter(null)
+                  }
+                }}
+                
+              />
+            </Box>
+            
+            <Box sx={{ width: "100%", height: "40px"}}>
             <Select
               name="state"
               placeholder="State"
@@ -190,8 +250,9 @@ export default function UserListToolbar({
                 }
               }}
             />
-          </Box>
-          <Box sx={{ width: "20%", height: "40px" }}>
+            </Box>
+            
+            <Box sx={{ width: "100%", height: "40px" }}>
             <Select
               name="lga"
               placeholder="LGA"
@@ -214,8 +275,9 @@ export default function UserListToolbar({
                 setUserOptions(users?.filter(user => user?.lga === e?.value))
               }}
             />
-          </Box>
-            <Box sx={{ width: "20%", height: "40px" }}>
+            </Box>
+            
+            <Box sx={{ width: "100%", height: "40px" }}>
               <Select
                 name="user"
                 placeholder="User"
@@ -239,11 +301,12 @@ export default function UserListToolbar({
                 }}
               />
             </Box>
+
+                   
           </Box>
 
-          <Box sx={{ width: "100%", height: "40px", display: "flex", gap: 2 }}>
-            <Box>
-              <p style={{ margin: 0, fontSize: 12, color: "gray" }}>
+          <Box >
+              <p style={{ margin: 0,  color: "gray" }}>
                 Date From
               </p>
               <input
@@ -252,73 +315,80 @@ export default function UserListToolbar({
                   borderRadius: 5,
                   border: "1px solid #cccccc",
                   padding: "10px",
+                  
                 }}
                 onChange={e => setDateFrom(e.target.value)}
-              />
-            </Box>
-            <Box>
-              <p style={{ margin: 0, fontSize: 12, color: "gray" }}>Date To</p>
+              />            
+             
+            </Box>    
+
+          <Box >
+          
+              <p style={{ margin: 0,  color: "gray" }}>
+                Date To
+              </p>
               <input
                 type="date"
                 style={{
                   borderRadius: 5,
                   border: "1px solid #cccccc",
-                  padding: "10px",
+                  padding: "10px",                 
                 }}
                 min={dateFrom}
                 onChange={e => setDateTo(e.target.value)}
               />
-            </Box>
-          </Box>
 
-          <Box sx={{width: '100%', marginTop: 3, display: 'flex', gap: 4}}>
-            <Box sx={{width: '200px', borderRadius: '5px', border: '1px solid #CCCCCC', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
+          </Box>
+          
+          <Box>
+            <StyledSearch
+            value={filterName}
+            onChange={onFilterName}
+            placeholder="Search..."
+            startAdornment={
+              <InputAdornment position="start">
+                <Iconify
+                icon="eva:search-fill"
+                sx={{ color: "text.disabled", width: 20, height: 20 }}
+                />
+              </InputAdornment>
+              }
+            />     
+            </Box>
+
+          </FlexContainer>
+          
+          
+          <FlexContainer style={{ overflowY: "auto" }}>
+          <Box sx={{width: '100%', marginTop: 3, display: 'flex', gap: 4, flexDirection:"row", flexWrap:""}}>
+            <Box sx={{width: '200px', borderRadius: '5px', border: '1px solid #CCCCCC', display: 'flex', flexDirection: 'column', flexWrap:"wrap", alignItems: 'center', justifyContent: 'space-between'}}>
               <p>Total CEI</p>
               <p style={{fontWeight: 700, fontSize: 22}}>{filteredSurveys?.filter(item => item?.name === "ATM Client Exist Interview Survey")?.length ?? 0}</p>
             </Box>
-            <Box sx={{width: '200px', borderRadius: '5px', border: '1px solid #CCCCCC', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
+            <Box sx={{width: '200px', borderRadius: '5px', border: '1px solid #CCCCCC', display: 'flex', flexDirection: 'column', flexWrap:"wrap", alignItems: 'center', justifyContent: 'space-between'}}>
               <p>Total KII - Health Facility</p>
               <p style={{fontWeight: 700, fontSize: 22}}>{filteredSurveys?.filter(item => item?.name === "Kii Health Facility")?.length ?? 0}</p>
             </Box>
-            <Box sx={{width: '200px', borderRadius: '5px', border: '1px solid #CCCCCC', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
+            <Box sx={{width: '200px', borderRadius: '5px', border: '1px solid #CCCCCC', display: 'flex', flexDirection: 'column', flexWrap:"wrap", alignItems: 'center', justifyContent: 'space-between'}}>
               <p>Total KII - LGA</p>
-              <p style={{fontWeight: 700, fontSize: 22}}>{0}</p>
-            </Box>
+              <p style={{fontWeight: 700, fontSize: 22}}>{filteredSurveys?.filter(item => item?.name === "Kii Lga")?.length ?? 0}</p>
+            </Box>            
           </Box>
+          </FlexContainer>
+                
+   
+    </div>
+)}
 
-          {/* <Box sx={{ width: "20%", height: '40px'}}>
-        <Select
-          name="user"
-          placeholder="User"
-          isClearable
-          options={ORGANIZATIONS?.map((item) => ({
-            label: item.label,
-            value: item.value,
-          }))}
-          styles={SelectStyling}
-          // components={{
-          //   IndicatorSeparator: () => null,
-          // }}
-          value={
-            organizationFilter
-              ? ORGANIZATIONS?.find(
-                  (item) => item?.value === organizationFilter
-                )
-              : null
-          }
-          // onBlur={handleBlur}
-          onChange={(e) => {
-            setOrganizationFilter(e?.value);
-          }}
-        />
-      </Box> */}
-        </div>
-      )}
+
+
+
+
       {window.location.pathname === "/user-permissions" && (
         <div
           style={{ width: "100%", display: "flex", gap: 8, flexWrap: "wrap" }}
         >
-          <Box sx={{ width: "20%", height: "40px" }}>
+          <Box sx={{ width: "100%", height: "40px" }} sm={{width:"300px"}}>
             <Select
               name="state"
               placeholder="State"
@@ -348,7 +418,7 @@ export default function UserListToolbar({
               }}
             />
           </Box>
-          <Box sx={{ width: "20%", height: "40px" }}>
+          <Box sx={{ width: "100%", height: "40px" }} sm={{width:"300px"}}>
             <Select
               name="lga"
               placeholder="LGA"
@@ -373,33 +443,8 @@ export default function UserListToolbar({
           </Box>
         </div>
       )}
-      <StyledSearch
-        value={filterName}
-        onChange={onFilterName}
-        placeholder="Search..."
-        startAdornment={
-          <InputAdornment position="start">
-            <Iconify
-              icon="eva:search-fill"
-              sx={{ color: "text.disabled", width: 20, height: 20 }}
-            />
-          </InputAdornment>
-        }
-      />
-      {/* )} */}
-      {/* {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <Iconify icon="eva:trash-2-fill" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Iconify icon="ic:round-filter-list" />
-          </IconButton>
-        </Tooltip>
-      )} */}
+      
+     
     </StyledRoot>
   );
 }

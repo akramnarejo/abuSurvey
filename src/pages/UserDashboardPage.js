@@ -40,7 +40,7 @@ export default function UserDashboardPage() {
     <>
       <SelectSurvey isOpen={isModalOpen} handleClose={toggleModal} />
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | ATM Networks </title>
       </Helmet>
       <Container maxWidth="xl">
         <Box
@@ -55,19 +55,23 @@ export default function UserDashboardPage() {
             <img src={require("../assets/images/Hi.png")} alt="wave" />
             <Typography variant="h4">Hello</Typography>
           </Box>
-          <Button
-            variant="contained"
-            disableElevation
-            sx={{
-              width: "300px",
+          <Grid item xs={12} sm={6} md={4}>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              variant="contained"
+              disableElevation
+              sx={{
+              width: { xs: "100%", sm: "300px" },
               height: "60px",
               fontSize: "18px",
               fontWeight: "700",
-            }}
-            onClick={toggleModal}
-          >
-            Start Survey
-          </Button>
+              }}
+                onClick={toggleModal}
+              >
+                Start Survey
+            </Button>
+            </Box>
+          </Grid>
         </Box>
 
         <Grid container spacing={5}>

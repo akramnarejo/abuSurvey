@@ -11,7 +11,27 @@ export const ORGANIZATIONS = [
     label: "TB Network",
     value: "tb",
   },
+
 ];
+
+export const ATMNETWORKS = [ 
+
+  {
+    label: "Acomin",
+    value: "acomin",
+  },
+  {
+    label: "Nepwhan",
+    value: "nepwhan",
+  },
+  {
+    label: "TB Network",
+    value: "tb",
+  },
+
+];
+
+
 export const RESERVED_STATES = {
   acomin: [
     { label: "Edo", value: "edo" },
@@ -40,6 +60,158 @@ export const RESERVED_STATES = {
     { label: "Jigawa", value: "jigawa" },
     { label: "Lagos", value: "lagos" },
   ],
+};
+
+export const RESERVED_ORGANIZATIONS = {
+  acomin: [
+    { label: "Environmental Development and Family Health Organization ", value:"EDFH"},
+    { label: "Society For Woman and AIDs in Africa, Nigeria, Ekiti State Chapter  ", value:"SWAA"},
+    { label: "POSITIVE CARE SUPPORT GROUP", value:"positive care"},
+    { label: "Worldsmith Life Builders Foundation", value:"Worldsmith Life Builders Foundation"},
+    { label: "IRETIAYO SUPPORT GROUP ", value:"IRETIAYO SUPPORT GROUP "},
+    { label: "CENTER FOR ACCOUNTABILITY AND INCLUSIVE DEVELOPMENT", value:"CENTER FOR ACCOUNTABILITY AND INCLUSIVE DEVELOPMENT"},
+    { label: "First Food For Family Initiative (FIFFA)", value:"First Food For Family Initiative (FIFFA)"},
+    { label: "African Human Empowerment And Development Organization (AHEDO)", value:"African Human Empowerment And Development Organization (AHEDO)"},
+    { label: "Centre for Better Health & Community Development (BHECOD)", value:"Centre for Better Health & Community Development (BHECOD)"},
+    { label: "Foundation for Justice & Social Development (FOJSOD)", value:"Foundation for Justice & Social Development (FOJSOD)"},
+    { label: "Foundation for Community Health Rights and Development (FOCHRID)", value:"Foundation for Community Health Rights and Development (FOCHRID)"},
+    { label: "HeaIthy Living and Social Development Foundation", value:"HeaIthy Living and Social Development Foundation"},
+    { label: "Kids &Teens Resource Centre (K&TRC)", value:"Kids &Teens Resource Centre (K&TRC)"},
+    { label: "Foundation for Sustainable Health Promotion and Development (FOSHPAD)", value:"Foundation for Sustainable Health Promotion and Development (FOSHPAD)"},
+    { label: "Health Matters Inc.", value:"Health Matters Inc."},
+    { label: "ASSOCIATION OF POSITIVE YOUTH IN NIGERIA (APYIN).DELTA STATE", value:"ASSOCIATION OF POSITIVE YOUTH IN NIGERIA (APYIN).DELTA STATE"},
+    { label: "RURAL YOUTH PEACE & CARE FOUNDATION", value:"RURAL YOUTH PEACE & CARE FOUNDATION"},
+    { label: "Environmental and Rural Meditation Centre", value:"Environmental and Rural Meditation Centre"},
+    { label: "KARACHI RURAL-URBAN DEVELOPMENT INITIATIVE", value:"KARACHI RURAL-URBAN DEVELOPMENT INITIATIVE"},
+    { label: "Hope Assured Support Group", value:"Hope Assured Support Group"},
+    { label: "Chedericks save live development intiative", value:"Chedericks save live development intiative"},
+    { label: "Blessed Support Group Asaba", value:"Blessed Support Group Asaba"},
+    { label: "Community Integrity Initiative (CII)", value:"Community Integrity Initiative (CII)"},
+    { label: "End Time Soldiers", value:"End Time Soldiers"},
+    { label: "Askmee Multi concept Foundation", value:"Askmee Multi concept Foundation"},
+    { label: "OKIERO ANTHONY OKORO DEVELOPMENT FOUNDATION (OAODF)", value:"OKIERO ANTHONY OKORO DEVELOPMENT FOUNDATION (OAODF)"},
+    { label: "BETHEL VIVA FOUNDATION", value:"BETHEL VIVA FOUNDATION"},
+    { label: "PARTNERS FOR HOPE SUPPORT GROUP", value:"PARTNERS FOR HOPE SUPPORT GROUP"},
+    { label: "RIVERINE HEALTH INITIATIVE", value:"RIVERINE HEALTH INITIATIVE"},
+    { label: "Health Matters Incorporated", value:"Health Matters Incorporated"},
+    { label: "Jakin Ngo", value:"Jakin Ngo"},
+    { label: "Dave Enechukwu foundation", value:"Dave Enechukwu foundation"},
+    { label: "Nigeria Youth Aid Programme", value:"Nigeria Youth Aid Programme"},
+    { label: "Tender Care Initiatives", value:"Tender Care Initiatives"},
+    { label: "Center for Positive Health Organization", value:"Center for Positive Health Organization"},
+    { label: "Positive Proof  Women Healthcare Empowerement Initiatives", value:"Positive Proof  Women Healthcare Empowerement Initiatives"},
+    { label: "Community Aid Development Foundation", value:"Community Aid Development Foundation"},
+    { label: "Rhoda Haven Network of women Living with HIV/AIDs", value:"Rhoda Haven Network of women Living with HIV/AIDs"},
+    { label: "Community Empowerement for Peace Health Initative", value:"Community Empowerement for Peace Health Initative"},
+    { label: "Health Awareness and Gender Advocacy Initiative", value:"Health Awareness and Gender Advocacy Initiative"},
+    { label: "His Marvellous Grace Support Foundation", value:"His Marvellous Grace Support Foundation"},
+    { label: "Women Lifeline International", value:"Women Lifeline International"},
+    { label: "Community Care and Development Initiative", value:"Community Care and Development Initiative"},
+    { label: "The Eagle Eye Behavioural Reorientation Initative", value:"The Eagle Eye Behavioural Reorientation Initative"},
+    { label: "TOTAL CHILD CARE INITIATIVE ", value:"TOTAL CHILD CARE INITIATIVE "},
+    { label: "HOPE INITIATIVE", value:"HOPE INITIATIVE"},
+    { label: "ADONAI HEALTH AND DEVELOPMENT FOUNDATION (AHADEF)", value:"ADONAI HEALTH AND DEVELOPMENT FOUNDATION (AHADEF)"},
+    { label: "Society for People United Against HIV/AIDS And Other Disease (SPUIHAD)", value:"Society for People United Against HIV/AIDS And Other Disease (SPUIHAD)"},
+    { label: "Community Life Advancement Project", value:"Community Life Advancement Project"},
+    { label: "APYIN", value:"APYIN"},
+    { label: "Divine Heritage Support Group", value:"Divine Heritage Support Group"},
+    { label: "ESTHER THELFID FOUNDATION", value:"ESTHER THELFID FOUNDATION"},
+    { label: "Foundation For Community Health, Rioghts and Development (FOCHRID)", value:"Foundation For Community Health, Rioghts and Development (FOCHRID)"},
+    { label: "SOCIETY FOR COMMUNITY DEVELOPMENT (SCD)", value:"SOCIETY FOR COMMUNITY DEVELOPMENT (SCD)"},
+    { label: "ELOHIM FOUNDATION", value:"ELOHIM FOUNDATION"},
+    { label: "Innovative Solution To Community Development", value:"Innovative Solution To Community Development"},
+    { label: "Community Initiative for Sustainable Development", value:"Community Initiative for Sustainable Development"},
+    { label: "Passion And Concern for Women Welfare and Empowerment Initiative ACOWWEI)", value:"Passion And Concern for Women Welfare and Empowerment Initiative ACOWWEI)"},
+    { label: "Centre for Health, Education and  Development Communication (CHEDCOM)", value:"Centre for Health, Education and  Development Communication (CHEDCOM)"},
+
+    {label: "CONNECTING PEACE INITIATIVE", value:"CONNECTING PEACE INITIATIVE"},
+    {label: "SUPPORT INITIATIVE FOR SUSTAINABLE DEVELOPMENT", value:"SUPPORT INITIATIVE FOR SUSTAINABLE DEVELOPMENT"},
+    {label: "CHRISTIAN HELP INTERNATIONAL FOUNDATION", value:"CHRISTIAN HELP INTERNATIONAL FOUNDATION"},
+    {label: "SUPPORT FOR MANKIND DEVELOPMENT INITIATIVE", value:"SUPPORT FOR MANKIND DEVELOPMENT INITIATIVE"},
+    {label: "CENTER FOR CREATIVE DEVELOPMMENT STATEGIES", value:"CENTER FOR CREATIVE DEVELOPMMENT STATEGIES"},
+    {label: "ARINZE MADUENYI FOUNDATION", value: "ARINZE MADUENYI FOUNDATION"},
+    {label: "ASSOCIATION OF POSITIVE YOUTHS IN NIGERIA", value:"ASSOCIATION OF POSITIVE YOUTHS IN NIGERIA"},
+    {label: "SOCIETY FOR WOMEN AND YOUTHS ", value:"SOCIETY FOR WOMEN AND YOUTHS"},
+    {label: "MERCY OF GOD AND HUMANITARIAN INITIATIVE", value:"MERCY OF GOD AND HUMANITARIAN INITIATIVE"},
+    {label: "RIVERS OF HOPE AND HUMANITARIAN INITIATIVE", value:"RIVERS OF HOPE AND HUMANITARIAN INITIATIVE"},
+    {label: "CENTER FOR DEVELOPMENT SUPPORT INITIATIVE", value:"CENTER FOR DEVELOPMENT SUPPORT INITIATIV"},
+    {label: "DAWN OF LIFE FOUNDATION", value: "DAWN OF LIFE FOUNDATION"},
+    {label: "GODSGIFT SUPPORT GROUP", value:"GODSGIFT SUPPORT GROUP"},
+    {label: "DYNAMIC CHARITY ORGANIZATION", value:"DYNAMIC CHARITY ORGANIZATION"},
+    {label: "KEDUMLE SUPPORT GROUP", value:"KEDUMLE SUPPORT GROUP"},
+    {label: "Mediatrix Developemnt Foundation", value:"Mediatrix Developemnt Foundation"},
+    {label: "Centre for Healthworks Development and Research Initiative, CHEDRES", value:"Centre for Healthworks Development and Research Initiative, CHEDRES"},
+    {label: "BASIC FOUNDATION FOR SOCIO-ECONOMIC DEVELOPMENT OF RURAL WOMEN AND YOUTH(BF-SEDRWAY)", value:"BASIC FOUNDATION FOR SOCIO-ECONOMIC DEVELOPMENT OF RURAL WOMEN AND YOUTH(BF-SEDRWAY)"},
+    {label: "Faith Support Centre", value: "Faith Support Centre"},
+    {label: "IKAA INE AKPANA RURAL WOMEN DEVELOPMENT AND EMPOWERMENT FOUNDATION ", value:"IKAA INE AKPANA RURAL WOMEN DEVELOPMENT AND EMPOWERMENT FOUNDATION"},
+    {label: "RURAL CHILD HEALTH ORGANIZATION", value:"RURAL CHILD HEALTH ORGANIZATION"},
+    {label: "Fountain of Hope Support Group", value:"Fountain of Hope Support Group"},
+    {label: "POSTIVE CARE AND DEVELOPMENT FOUNDATION", value:"POSTIVE CARE AND DEVELOPMENT FOUNDATION"},
+    {label: "Dubass-Duke Foundation", value: "Dubass-Duke Foundation"},
+    {label: "Association of Positive Youth Living with HIV in Nigeria ", value:""},
+    {label: "Development Options", value: "Development Options"},
+    {label: "GLOBAL INITIATIVE FOR PRIMARY HEALTH AND COMMUNITY DEVELOPMENT (GLIPHCOD)", value:"GLOBAL INITIATIVE FOR PRIMARY HEALTH AND COMMUNITY DEVELOPMENT (GLIPHCOD)"},
+    {label: "GREATER HANDS INTERNATIONAL FOR HEALTH AND DEVELOPMENT (GHI4HD)", value:"GREATER HANDS INTERNATIONAL FOR HEALTH AND DEVELOPMENT (GHI4HD)"},
+    {label: "Community Health and Development Advisory Trust (COHDAT)", value:"Community Health and Development Advisory Trust (COHDAT)"},
+    {label: "Eti-Uwem Support Group", value: "Eti-Uwem Support Group"},
+    {label: "Malaria eradication and safe health intitiative", value:"Malaria eradication and safe health intitiative"},
+    {label: "Hope givers care and support organisation", value:"Hope givers care and support organisation"},
+    {label: "Care trust development initiative", value:"Care trust development initiative"},
+    {label: "Descom global care initiative", value:"Descom global care initiative"},
+    {label: "Save the world support foundation", value:"Save the world support foundation"},
+    {label: "Gender perspective and social development centre", value:"Gender perspective and social development centre"},
+    {label: "Aguata diocesan centre for community health and development", value:"Aguata diocesan centre for community health and development"},
+    {label: "Restored hope organisation", value: "Restored hope organisation"},
+    {label: "Be Glad care and support foundation", value:"Be Glad care and support foundation"},
+    {label: "Victoria clarion foundation", value:"Victoria clarion foundation"},
+    {label: "Spring of hope foundation", value: "Spring of hope foundation"},
+    {label: "Shoulder for gender support development initiative", value:"Shoulder for gender support development initiative"},
+    {label: "Civil resource development and documentation centre Nigeria", value:"Civil resource development and documentation centre Nigeria"},
+    {label: "Light of the nation Organisation", value:"Light of the nation Organisation"},
+    {label: "Anglican diocese of Nnewi health and community development centre", value:"Anglican diocese of Nnewi health and community development centre"},
+    {label: "Connected Advocacy for Empowerment and Youth Development Initiative", value:"Connected Advocacy for Empowerment and Youth Development Initiative"},
+    {label: "Center for Research and community development (CRCD)", value:"Center for Research and community development (CRCD)"},
+    {label: "Circle of Friends Care and Support Initiative", value:"Circle of Friends Care and Support Initiative"},
+    {label: "Association of persons for the protection of victims of human trafficking", value:"Association of persons for the protection of victims of human trafficking"},
+    {label: "Comforters Empowerment Initiative Nigeria", value:"Comforters Empowerment Initiative Nigeria"},
+    {label: "Access to health women's right and community development", value:"Access to health women's right and community development"},
+    {label: "AFRIPRIDE CENTRE FOR RESEARCH AND POPULATION ACTIVITIES", value:"AFRIPRIDE CENTRE FOR RESEARCH AND POPULATION ACTIVITIES"},
+    {label: "WILLI JOHNSON FOUNDATION", value: "WILLI JOHNSON FOUNDATION"},
+    {label: "Global Women for Quality and Sustainable Development Initiative (GWSD)", value:"Global Women for Quality and Sustainable Development Initiative (GWSD)"},
+    {label: "Community-based Initiatives for a Brighter Tomorrow ( CIBT)", value:"Community-based Initiatives for a Brighter Tomorrow ( CIBT)"},
+    {label: "Capacity Enhancement and Manpower Development Foundation (CEMDF", value:"Capacity Enhancement and Manpower Development Foundation (CEMDF"},
+    {label: "Justice Development and Peace Commission (JDPC) Auchi", value:"Justice Development and Peace Commission (JDPC) Auchi"},
+    {label: "Josemaria Escriva Foundation", value:"Josemaria Escriva Foundation"},
+    {label: "Ideal Development and Resource Center", value:"Ideal Development and Resource Center"},
+    {label: "LIFT ABOVE POVERTY ORGANIZATION (LAPO)", value:"LIFT ABOVE POVERTY ORGANIZATION (LAPO)"},
+    {label: "ATUNBIOLU SUPPORT GROUP", value: "ATUNBIOLU SUPPORT GROUP"},
+    {label: "COURAGEOUS PEOPLE HEALTH AND DEVELOPMENT INITIATIVE ", value:""},
+    {label: "Community Development Initiatives", value:"Community Development Initiatives"},
+    {label: "Planned Parenthood Federation of Nigeria, Ogun State", value:"Planned Parenthood Federation of Nigeria, Ogun State"},
+    {label: "HOPE FOR NEW LIFE ORGANIZATION", value:"HOPE FOR NEW LIFE ORGANIZATION"},
+    {label: "Advocates for Health and Development Initiative ", value:"Advocates for Health and Development Initiative "},
+    {label: "YOUTH FUTURE SAVERS INIITIATIVE", value:"YOUTH FUTURE SAVERS INIITIATIVE"},
+    {label: "Peasants Dragnet", value: "Peasants Dragnet"},
+    {label: "passion for young woman health and Betterment initiative ", value:"passion for young woman health and Betterment initiative "},
+    {label: "FOOD CONSERVATION AND WASTE ELIMINATION INITIATIVE", value:"FOOD CONSERVATION AND WASTE ELIMINATION INITIATIVE"},
+    {label: "ADEM Community & Human Development Foundation", value: "ADEM Community & Human Development Foundation"},
+    {label: "Catholic Fountain for Life", value:"Catholic Fountain for Life"},
+    {label: "Aishat Hairat Rashidat (AHR) Foundation", value:"Aishat Hairat Rashidat (AHR) Foundation"},
+    {label: "WOMEN ADVOCACY ON HIV/AIDS PREVENTION AND OTHER DISEASES (WAHPOD)", value:"WOMEN ADVOCACY ON HIV/AIDS PREVENTION AND OTHER DISEASES (WAHPOD)"},
+    {label: "HEALTH MATTERS INCORPORATED", value: "HEALTH MATTERS INCORPORATED"}
+
+  ],
+
+  nepwhan: [
+    { label: "Worldsmith Life Builders Foundation", value:"worldsmith"},
+    { label: "IRETIAYO SUPPORT GROUP ", value:"irjigja"},
+  ],
+
+  tb: [
+    { label: "HeaIthy Living and Social Development Foundation ", value:"TB"},
+    { label: "Kids &Teens Resource Centre (K&TRC)", value:"TB Network"},
+  ]
+
 };
 
 export const ROLES = [
@@ -264,7 +436,8 @@ export const LGAs = {
     { label: "Yola South", value: "Yola South" },
   ],
 
-  ["akwa ibom"]: [
+  //["akwa ibom"]
+  "akwa ibom" : [
     { label: "Abak", value: "abak" },
     { label: "Eastern Obolo", value: "eastern_obolo" },
     { label: "Eket", value: "eket" },
@@ -400,7 +573,8 @@ export const LGAs = {
     { label: "Shani", value: "Shani" },
   ],
 
-  ["cross river"]: [
+  //["cross river"]
+  "cross river": [
     { label: "Abi", value: "abi" },
     { label: "Akamkpa", value: "akamkpa" },
     { label: "Akpabuyo", value: "akpabuyo" },
@@ -2028,7 +2202,8 @@ export const LGAs = {
     },
   ],
 
-  ["fct abuja"]: [
+  //["fct abuja"]
+  "fct abuja": [
     {
       label: "Abaji",
       value: "abaji",

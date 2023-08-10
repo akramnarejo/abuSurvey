@@ -209,49 +209,52 @@ export default function UserPage() {
         />
       )}
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User | ATM Network </title>
       </Helmet>
 
       <Container maxWidth="xl">
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={5}
+      <Stack
+  direction={{ xs: "column", sm: "row" }}
+  alignItems={{ xs: "stretch", sm: "center" }}
+  justifyContent={{ xs: "center", sm: "space-between" }}
+  mb={5}
+  gap={{ xs: 2, sm: 0 }}
+>
+  <Typography variant="h4" gutterBottom>
+    Survey
+  </Typography>
+  <Stack direction="row" gap={2}>
+    <Button
+      variant="contained"
+      disableElevation
+      sx={{
+        width: { xs: "100%", sm: "300px" },
+        height: "60px",
+        fontSize: "18px",
+        fontWeight: "700",
+      }}
+      onClick={toggleSurveyModal}
+    >
+            Start Survey
+        </Button>
+        <Button
+          variant="outlined"
+          disableElevation
+          disabled={true}
+        sx={{
+          width: { xs: "100%", sm: "300px" },
+          height: "60px",
+          fontSize: "18px",
+          fontWeight: "700",
+          }}
+          // onClick={toggleModal}
         >
-          <Typography variant="h4" gutterBottom>
-            Survey
-          </Typography>
-          <Stack direction="row" alignItems="center" gap={2}>
-            <Button
-              variant="contained"
-              disableElevation
-              sx={{
-                width: "300px",
-                height: "60px",
-                fontSize: "18px",
-                fontWeight: "700",
-              }}
-              onClick={toggleSurveyModal}
-            >
-              Start Survey
-            </Button>
-            <Button
-              variant="outlined"
-              disableElevation
-              disabled={true}
-              sx={{
-                width: "300px",
-                height: "60px",
-                fontSize: "18px",
-                fontWeight: "700",
-              }}
-              // onClick={toggleModal}
-            >
-              Upload Pending Survey
-            </Button>
-          </Stack>
+           Synchronize {/* Upload Pending Survey */}
+        </Button>
         </Stack>
+        </Stack>
+
+
 
         <Card>
           <UserListToolbar

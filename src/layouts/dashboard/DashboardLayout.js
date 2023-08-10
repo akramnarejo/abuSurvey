@@ -71,6 +71,7 @@ export default function DashboardLayout() {
             submittedAt: fields?.submittedAt?.stringValue,
             status: fields?.status?.stringValue,
             organization: fields?.organization?.stringValue,
+            //reservedOrg: fields?.reservedOrg?.stringValue,
             createdBy: fields?.createdBy?.stringValue,
             data: fields?.data?.stringValue,
             option: null,

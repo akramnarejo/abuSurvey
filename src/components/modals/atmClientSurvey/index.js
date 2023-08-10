@@ -11,7 +11,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   maxWidth: 1200,
   width: "100%",
-  height: "950px",
+  height: "100%",
   overflow: "auto",
   bgcolor: "#E9E9E9",
   boxShadow: 24,
@@ -43,10 +43,10 @@ function ATMClientSurveyModal(props) {
                 sx={{ width: "60px", height: "60px", background: "black" }}
               ></Box>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Typography fontSize="16px" color="#4F4F4F">
+                <Typography fontSize="0.9em" color="#4F4F4F">
                   Preview Survey:
                 </Typography>
-                <Typography fontSize="18px" fontWeight="700" color="#4F4F4F">
+                <Typography fontWeight="700" color="#4F4F4F">
                   C19RM/RSSH COMMUNITY LED MONITORING IN ATM INTERVENTION
                 </Typography>
               </Box>
@@ -63,11 +63,12 @@ function ATMClientSurveyModal(props) {
           <Box
             sx={{
               marginTop: 4,
-              width: "1000px",
+              width: "100%",
               background: "white",
               borderRadius: "5px",
               margin: "20px auto",
               p: 2,
+              fontSize: "1em",
             }}
           >
             <ATMClientSurvey name={name} startedAt={new Date().toISOString()} />

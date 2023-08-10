@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 // @mui
 import {
   Card,
+  Grid,
   Table,
   Stack,
   Paper,
@@ -46,7 +47,8 @@ import { getFunctions, httpsCallable } from "firebase/functions";
 const TABLE_HEAD = [
   { id: "name", label: "Name", alignRight: false },
   { id: "role", label: "Role", alignRight: false },
-  { id: "organizaion", label: "Organization", alignRight: false },
+  { id: "organizaion", label: "Network", alignRight: false },
+  { id: "reservedOrg", label: "Organization", alignRight: false },
   { id: "status", label: "Status", alignRight: false },
   { id: "option", label: "Option", alignRight: false },
   // { id: "" },
@@ -84,7 +86,8 @@ function applySortFilter(array, comparator, query) {
         (_user?.firstName)?.toLowerCase().indexOf(query?.toLowerCase()) !== -1 ||
         _user?.lastName?.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
         _user?.role?.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-        _user?.organization?.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        _user?.organization?.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+        _user?.reservedOrg?.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis?.map((el) => el[0]);
@@ -140,10 +143,13 @@ export default function UserPermissions() {
 
   // const [surveys, setSurveyList] = useState([]);
   // const [loading, setLoading] = useState(false);
-  const fetchUsers = async () => {
-    const data = await getDocs(collection(db, "users"));
-    return data;
-  };
+  
+  
+  //Commented and replaced the function in the firestore
+  // const fetchUsers = async () => {
+  //   const data = await getDocs(collection(db, "users"));
+  //   return data;
+  // };
 
   const handleGetUsers = () => {
     getUsers(db).then((data) => {
@@ -285,35 +291,41 @@ export default function UserPermissions() {
         />
       )}
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User | ATM Networks </title>
       </Helmet>
 
       <Container maxWidth="xl">
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={5}
+      <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 5,
+          }}
         >
           <Typography variant="h4" gutterBottom>
             User Permissions
           </Typography>
-          <Stack direction="row" alignItems="center" gap={2}>
+
+          <Grid item xs={12} sm={6} md={4}>
+          <Stack sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
-              variant="contained"
-              disableElevation
-              sx={{
-                width: "300px",
-                height: "60px",
-                fontSize: "18px",
-                fontWeight: "700",
-              }}
+             variant="contained"
+             disableElevation
+             sx={{
+             width: { xs: "100%", sm: "300px" },
+             height: "60px",
+             fontSize: "18px",
+             fontWeight: "700",
+             }}
               onClick={toggleModal}
             >
               + New User
             </Button>
           </Stack>
-        </Stack>
+          </Grid>
+          
+        </Box>
 
         <Card>
           <UserListToolbar
@@ -393,6 +405,7 @@ export default function UserPermissions() {
                           lastName,
                           role,
                           organization,
+                          reservedOrg,
                           status,
                           uid,
                         } = row;
@@ -429,6 +442,10 @@ export default function UserPermissions() {
 
                             <TableCell align="left">
                               {!organization ? "-" : organization}
+                            </TableCell>
+
+                            <TableCell align="left">
+                              {reservedOrg}
                             </TableCell>
 
                             {/* <TableCell align="left">

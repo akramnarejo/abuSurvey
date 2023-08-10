@@ -5,6 +5,14 @@ export const surveyData = {
       title: "KII Health Client",
       description: "Survey for KII health Client",
       elements: [
+
+        {
+          name: "facilityname",
+          type: "text",
+          title: "Name of Facility (in Capital Letters)",
+          placeholder: "Enter Name of Facility",
+        },
+
         {
           type: "radiogroup",
           name: "q1",
