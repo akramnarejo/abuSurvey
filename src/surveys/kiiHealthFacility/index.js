@@ -11,18 +11,17 @@ StylesManager.applyTheme("modern");
 
 function KiiHealthFacility(props) {
   const { name, startedAt, surveyId, isEditing = false } = props;
-  // check if there's internet
-  const isOnline = navigator.onLine;
   const { db } = useUserAuth();
   const survey = new Model(surveyData);
   survey.focusFirstQuestionAutomatic = false;
 
-  const { userInfo, setLoadSurveys, surveys, users } = useStore(
+  const { userInfo, setLoadSurveys, surveys, users, setOfflineSurveys } = useStore(
     (state) => ({
       userInfo: state?.userInfo,
       setLoadSurveys: state?.setLoadSurveys,
       surveys: state?.surveys,
       users: state?.users,
+      setOfflineSurveys: state?.setOfflineSurveys,
     }),
     shallow
   );
@@ -40,7 +39,7 @@ function KiiHealthFacility(props) {
     const user = users?.find(user => user?.email === userInfo?.email)
     console.log('--------survey creating: ', survey)
     try {
-      if (isOnline) {
+      if (navigator.onLine) {
         if (isEditing) {
           const docRef = doc(db, 'surveys', surveyId);
           await updateDoc(docRef, {
@@ -49,7 +48,7 @@ function KiiHealthFacility(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
+            reservedOrg: user?.reservedOrg ?? null,
             createdBy: user?.email,
             data: survey,
           });
@@ -60,13 +59,22 @@ function KiiHealthFacility(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
+            reservedOrg: user?.reservedOrg ?? null,
             createdBy: user?.email,
             data: survey,
           });
         }
       } else {
-        // save into localDB
+        // save into local storage
+        setOfflineSurveys({
+          name,
+          startedAt,
+          submittedAt: new Date().toISOString(),
+          status: "Preview",
+          organization: userInfo?.organization,
+          createdBy: userInfo?.email,
+          data: survey,
+        })
       }
     } catch (e) {
       console.error("Error adding document: ", e);

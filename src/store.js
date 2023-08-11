@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 let useStore = (set, get) => ({
   surveys: [],
+  offlineSurveys: [],
   loading: false,
   userInfo: {
     isAdmin: false,
@@ -18,6 +19,8 @@ let useStore = (set, get) => ({
   setLoadSurveys: () => set(() => ({ loadSurveys: !get()?.loadSurveys })),
   setLoading: (props) => set(() => ({ loading: props })),
   getSurveys: (data) => set(() => ({ surveys: data })),
+  setOfflineSurveys: data => set(() => ({offlineSurveys: get().offlineSurveys.concat(data)})),
+  clearOfflineSurveys: data => set(() => ({offlineSurveys: data})),
   setUserInfo: (data) =>
     set(() => ({ userInfo: { ...get()?.userInfo, ...data } })),
   getUsers: async (db) => {

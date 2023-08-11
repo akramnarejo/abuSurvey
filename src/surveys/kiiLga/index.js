@@ -56,12 +56,14 @@ function KiiLga(props) {
 
 
 
-  const { userInfo, setLoadSurveys, surveys, users } = useStore(
+  const { userInfo, setLoadSurveys, surveys, users, setOfflineSurveys, setNotify } = useStore(
     (state) => ({
       userInfo: state?.userInfo,
       setLoadSurveys: state?.setLoadSurveys,
       surveys: state?.surveys,
       users: state?.users,
+      setOfflineSurveys: state?.setOfflineSurveys,
+      setNotify: state?.setNotify,
     }),
     shallow
   );
@@ -96,7 +98,7 @@ function KiiLga(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
+            reservedOrg: user?.reservedOrg ?? null,
             createdBy: user?.email,
             data: survey,
           });
@@ -107,26 +109,36 @@ function KiiLga(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
+            reservedOrg: user?.reservedOrg ?? null,
             createdBy: user?.email,
             data: survey,
           });
         }
       } else {
         // Save into localStorage
-        localStorage.setItem(
-          "offlineSurveyData",
-          JSON.stringify({
-            name,
-            startedAt,
-            submittedAt: new Date().toISOString(),
-            status: "Preview",
-            organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
-            createdBy: user?.email,
-            data: survey,
-          })
-        );
+        // localStorage.setItem(
+        //   "offlineSurveyData",
+        //   JSON.stringify({
+        //     name,
+        //     startedAt,
+        //     submittedAt: new Date().toISOString(),
+        //     status: "Preview",
+        //     organization: user?.organization,
+        //     reservedOrg: user?.reservedOrg,
+        //     createdBy: user?.email,
+        //     data: survey,
+        //   })
+        // );
+        setOfflineSurveys({
+          name,
+          startedAt,
+          submittedAt: new Date().toISOString(),
+          status: "Preview",
+          organization: userInfo?.organization,
+          createdBy: userInfo?.email,
+          data: survey,
+        })
+        setNotify({ open: true, message: 'Survey stored locally!', type: 'error' })
       }
     } catch (e) {
       console.error("Error adding document: ", e);
