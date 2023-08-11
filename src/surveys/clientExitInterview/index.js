@@ -17,12 +17,13 @@ function ATMClientSurvey(props) {
   const survey = new Model(surveyData);
   survey.focusFirstQuestionAutomatic = false;
 
-  const { userInfo, setLoadSurveys, surveys, users } = useStore(
+  const { userInfo, setLoadSurveys, surveys, users, setOfflineSurveys} = useStore(
     (state) => ({
       userInfo: state?.userInfo,
       setLoadSurveys: state?.setLoadSurveys,
       surveys: state?.surveys,
       users: state?.users,
+      setOfflineSurveys: state?.setOfflineSurveys,
     }),
     shallow
   );
@@ -49,7 +50,7 @@ function ATMClientSurvey(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
+            reservedOrg: user?.reservedOrg ?? null,
             createdBy: user?.email,
             data: survey,
           });
@@ -60,13 +61,22 @@ function ATMClientSurvey(props) {
             submittedAt: new Date().toISOString(),
             status: "Preview",
             organization: user?.organization,
-            reservedOrg: user?.reservedOrg,
+            reservedOrg: user?.reservedOrg ?? null,
             createdBy: user?.email,
             data: survey,
           });
         }
       } else {
-        // save into localDB
+        // save into local storage
+        setOfflineSurveys({
+          name,
+          startedAt,
+          submittedAt: new Date().toISOString(),
+          status: "Preview",
+          organization: userInfo?.organization,
+          createdBy: userInfo?.email,
+          data: survey,
+        })
       }
     } catch (e) {
       console.error("Error adding document: ", e);

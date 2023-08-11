@@ -36,7 +36,7 @@ import ViewSurveyModal from "src/components/modals/viewModal";
 import moment from "moment";
 import { useStore } from "src/store";
 import { shallow } from "zustand/shallow";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, addDoc, collection } from "firebase/firestore";
 import { useUserAuth } from "src/context";
 import ATMClientSurveyModal from "src/components/modals/atmClientSurvey";
 import SelectSurvey from "src/components/modals/selectSurvey";
@@ -86,14 +86,22 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function UserPage() {
-  const { surveys, loading, userInfo, setLoadSurveys } = useStore(
-    (state) => ({
-      surveys: state?.surveys,
-      loading: state?.loading,
-      userInfo: state?.userInfo,
-      setLoadSurveys: state?.setLoadSurveys,
-    }),
-    shallow
+  const { surveys, loading, userInfo, setLoadSurveys, offlineSurveys, clearOfflineSurveys, setNotify } =
+    useStore(
+      (state) => ({
+        surveys: state?.surveys,
+        loading: state?.loading,
+        userInfo: state?.userInfo,
+        setLoadSurveys: state?.setLoadSurveys,
+        offlineSurveys: state?.offlineSurveys,
+        clearOfflineSurveys: state?.clearOfflineSurveys,
+        setNotify: state?.setNotify,
+      }),
+      shallow
+    );
+  console.log(
+    "==================================OFFLINE SURVEYS================================: ",
+    offlineSurveys
   );
   const { db } = useUserAuth();
   const [open, setOpen] = useState(null);
@@ -113,7 +121,7 @@ export default function UserPage() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
-  const [modalData, setModalData] = useState({surveyId: null, name: null});
+  const [modalData, setModalData] = useState({ surveyId: null, name: null });
 
   // const [surveys, setSurveyList] = useState([]);
   // const [loading, setLoading] = useState(false);
@@ -122,7 +130,7 @@ export default function UserPage() {
   const toggleModal = () => setOpen(!open);
   const toggleSurveyModal = () => setModalOpen(!isModalOpen);
   const toggleEditSurveyModal = (id, name) => {
-    setModalData({surveyId: id, name: name})
+    setModalData({ surveyId: id, name: name });
     setEditModalOpen(!isEditModalOpen);
   };
 
@@ -185,7 +193,7 @@ export default function UserPage() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - surveys?.length) : 0;
 
   const filteredUsers = applySortFilter(
-    surveys?.filter(survey => survey?.createdBy === userInfo?.email),
+    surveys?.filter((survey) => survey?.createdBy === userInfo?.email),
     getComparator(order, orderBy),
     filterName
   );
@@ -195,6 +203,32 @@ export default function UserPage() {
   const handleDeleteSurvey = async (document) => {
     await deleteDoc(doc(db, userInfo?.name, document));
   };
+
+  const handleOfflineSurveys = async () => {
+    if (offlineSurveys?.length) {
+      try {
+        const promises = offlineSurveys.map(async (survey, index) => {
+          try {
+            await addDoc(collection(db, "surveys"), survey);
+            return index; // Return the index of successfully added survey
+          } catch (error) {
+            // Handle error if needed
+            return null; // Return null for failed survey
+          }
+        });
+        const successfulIndices = (await Promise.all(promises)).filter(index => index !== null);
+        // Remove successfully added surveys from offlineSurveys
+        const remainingSurveys = offlineSurveys.filter((_, index) => !successfulIndices.includes(index));
+        clearOfflineSurveys(remainingSurveys)
+        setNotify({ open: true, message: 'Surveys uploaded successfully!', type: 'success' })
+      } catch (error) {
+        // Handle error if needed
+        setNotify({ open: true, message: 'Surveys failed to upload', type: 'error' })
+      }
+    }
+  };
+  
+  
 
   return (
     <>
@@ -213,48 +247,47 @@ export default function UserPage() {
       </Helmet>
 
       <Container maxWidth="xl">
-      <Stack
-  direction={{ xs: "column", sm: "row" }}
-  alignItems={{ xs: "stretch", sm: "center" }}
-  justifyContent={{ xs: "center", sm: "space-between" }}
-  mb={5}
-  gap={{ xs: 2, sm: 0 }}
->
-  <Typography variant="h4" gutterBottom>
-    Survey
-  </Typography>
-  <Stack direction="row" gap={2}>
-    <Button
-      variant="contained"
-      disableElevation
-      sx={{
-        width: { xs: "100%", sm: "300px" },
-        height: "60px",
-        fontSize: "18px",
-        fontWeight: "700",
-      }}
-      onClick={toggleSurveyModal}
-    >
-            Start Survey
-        </Button>
-        <Button
-          variant="outlined"
-          disableElevation
-          disabled={true}
-        sx={{
-          width: { xs: "100%", sm: "300px" },
-          height: "60px",
-          fontSize: "18px",
-          fontWeight: "700",
-          }}
-          // onClick={toggleModal}
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          alignItems={{ xs: "stretch", sm: "center" }}
+          justifyContent={{ xs: "center", sm: "space-between" }}
+          mb={5}
+          gap={{ xs: 2, sm: 0 }}
         >
-           Synchronize {/* Upload Pending Survey */}
-        </Button>
+          <Typography variant="h4" gutterBottom>
+            Survey
+          </Typography>
+          <Stack direction="row" gap={2}>
+            <Button
+              variant="contained"
+              disableElevation
+              sx={{
+                width: { xs: "100%", sm: "300px" },
+                height: "60px",
+                fontSize: "18px",
+                fontWeight: "700",
+              }}
+              onClick={toggleSurveyModal}
+            >
+              Start Survey
+            </Button>
+            <Button
+              variant="outlined"
+              disableElevation
+              disabled={!navigator.onLine || !offlineSurveys?.length}
+              sx={{
+                width: { xs: "100%", sm: "300px" },
+                height: "60px",
+                fontSize: "18px",
+                fontWeight: "700",
+              }}
+              onClick={handleOfflineSurveys}
+            >
+              {offlineSurveys?.length ? `(${offlineSurveys?.length})` : ""}{" "}
+              Synchronize {/* Upload Pending Survey */}
+            </Button>
+          </Stack>
         </Stack>
-        </Stack>
-
-
 
         <Card>
           <UserListToolbar
@@ -403,19 +436,29 @@ export default function UserPage() {
                                   alt="edit survey"
                                   style={{ cursor: "pointer" }}
                                 /> */}
-                                {status === 'Preview' && <Box onClick={() => toggleEditSurveyModal(id, name)}>
-                                  <img
-                                    src={require("../assets/icons/edit.png")}
-                                    alt="view survey"
-                                    style={{ cursor: "pointer" }}
-                                  />
-                                </Box>}
+                                {status === "Preview" && (
+                                  <Box
+                                    onClick={() =>
+                                      toggleEditSurveyModal(id, name)
+                                    }
+                                  >
+                                    <img
+                                      src={require("../assets/icons/edit.png")}
+                                      alt="view survey"
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </Box>
+                                )}
                                 <Box
                                   onClick={() => {
-                                    if(window.confirm('Are you sure, you want to delete survey?')){
+                                    if (
+                                      window.confirm(
+                                        "Are you sure, you want to delete survey?"
+                                      )
+                                    ) {
                                       handleDeleteSurvey(id).then(() =>
-                                      setLoadSurveys()
-                                    );
+                                        setLoadSurveys()
+                                      );
                                     }
                                   }}
                                 >

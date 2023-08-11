@@ -42,6 +42,7 @@ export default function LoginForm() {
     try {
       setLoading(true);
       await logIn(email, password);
+      setLoading(false);
       const user = users?.find((item) => item?.email === email);
       setUserInfo({
         isAdmin: user?.role === "super-admin" ? true : false,
