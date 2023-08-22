@@ -40,7 +40,7 @@ const navConfig = [
 
   {
     title: "File Manager",
-    path: "/admin-filemanager",
+    path: "/files",
     icon: icon("ic_cart"),
   },
   // {

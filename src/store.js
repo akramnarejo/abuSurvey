@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 let useStore = (set, get) => ({
   surveys: [],
+  files: [],
   offlineSurveys: [],
   loading: false,
   userInfo: {
@@ -49,6 +50,26 @@ let useStore = (set, get) => ({
       usersFetched.push(user)
     }
     set(() => ({users: usersFetched}))
+    return data;
+    // set(() => {})
+  },
+  fetchFiles: async (db) => {
+    set(() => ({loading: true}))
+    const data = await getDocs(collection(db, 'files'));
+    
+    const filesFetched = []
+    for(let i = 0; i < data?.docs?.length; i++){
+      const document = data?.docs?.[i]?._document?.data?.value?.mapValue?.fields
+      const file = {
+        name: document?.name?.stringValue,
+        createdBy: document?.createdBy?.stringValue,
+        organization: document?.organization?.stringValue,
+        reservedOrg: document?.reservedOrg?.stringValue,
+        url: document?.url?.stringValue,
+      }
+      filesFetched.push(file)
+    }
+    set(() => ({files: filesFetched}))
     return data;
     // set(() => {})
   },
