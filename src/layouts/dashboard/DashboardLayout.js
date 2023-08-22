@@ -37,7 +37,7 @@ const Main = styled("div")(({ theme }) => ({
 
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
-  const { getSurveys, setLoading, getUsers, userInfo, loadSurveys, fetchSurveys } = useStore(
+  const { getSurveys, setLoading, getUsers, userInfo, loadSurveys, fetchSurveys, fetchFiles } = useStore(
     (state) => ({
       getSurveys: state?.getSurveys,
       setLoading: state?.setLoading,
@@ -45,6 +45,7 @@ export default function DashboardLayout() {
       getUsers: state?.getUsers,
       loadSurveys: state?.loadSurveys,
       fetchSurveys: state?.fetchSurveys,
+      fetchFiles: state?.fetchFiles,
     }),
     shallow
   );
@@ -58,6 +59,9 @@ export default function DashboardLayout() {
   // };
   useEffect(() => {
     getUsers(db);
+    fetchFiles(db);
+  }, [])
+  useEffect(() => {
     fetchSurveys(db)
       .then((data) => {
         setLoading(false);
