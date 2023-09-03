@@ -182,7 +182,9 @@ export default function UserListToolbar({
                 // components={{
                 //   IndicatorSeparator: () => null,
                 // }}
-                isDisabled={userInfo?.role === 'supervisor'}
+
+                //Abubakar: I enabled the Network for a Supervisor
+                //isDisabled={userInfo?.role === 'supervisor'}
                 value={
                   organizationFilter
                     ? ORGANIZATIONS?.find(

@@ -43,6 +43,13 @@ const navConfig = [
     path: "/admin-filemanager",
     icon: icon("ic_cart"),
   },
+
+  {
+    title: "Visualization",
+    path: "/visualization",
+    icon: icon("ic_blog"),
+  },
+  
   // {
   //   title: "Report",
   //   path: "/blog",

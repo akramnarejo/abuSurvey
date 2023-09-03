@@ -16,6 +16,7 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import UserPermissions from "./pages/UserPermissions";
 import AdminManageFile from "./pages/AdminManageFile";
 import UserUploadFile from "./pages/UserUploadFile";
+import Visualization from "./pages/Visualization";
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -56,6 +57,7 @@ export default function Router() {
         { path: "user-permissions", element: <UserPermissions /> },
         { path: "submission", element: <Submission /> },
         { path: "admin-filemanager", element: <AdminManageFile /> },
+        { path: "visualization", element: <Visualization /> },
       ],
     },
     {
