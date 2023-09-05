@@ -198,12 +198,13 @@ export const RESERVED_ORGANIZATIONS = {
     {label: "Aishat Hairat Rashidat (AHR) Foundation", value:"Aishat Hairat Rashidat (AHR) Foundation"},
     {label: "WOMEN ADVOCACY ON HIV/AIDS PREVENTION AND OTHER DISEASES (WAHPOD)", value:"WOMEN ADVOCACY ON HIV/AIDS PREVENTION AND OTHER DISEASES (WAHPOD)"},
     {label: "HEALTH MATTERS INCORPORATED", value: "HEALTH MATTERS INCORPORATED"},
-    { label: "Family Counceling Centre", value: "Family Counceling Centre" },
+    { label: "Family Councelling Centre", value: "Family Counceling Centre" },
     { label: "Food For All Global Initiative", value: "Food For All Global Initiative" },
     { label: "Royal Health Heritage Foundation", value: "Royal Health Heritage Foundation" },
     { label: "PRIMHEMAC", value: "PRIMHEMAC" },
     { label: "Farmers Development Union", value: "Farmers Development Union" },
     { label: "RAPAC", value: "RAPAC" },
+    { label: "Redeemer All Initiative for People and Communities", value: "Redeemer All Initiative for People and Communities" },
 
   ],
 
@@ -321,6 +322,7 @@ export const RESERVED_ORGANIZATIONS = {
 { label: "Women Environment and Youth Development Initiative (WOYODEV)", value: "Women Environment and Youth Development Initiative (WOYODEV)"},
 { label: "Keep Fit Health Support Group", value: "Keep Fit Health Support Group"},
 { label: "Theios Caregivers Initiative", value: "Theios Caregivers Initiative"},
+{ label: "Hasiya Idris Wuro Foundation", value: "Hasiya Idris Wuro Foundation"},
 { label: "Living Care Community Development Foundation (LCCDF)", value: "Living Care Community Development Foundation (LCCDF)"},
 { label: "Love And Care Health Support Group ", value: "Love And Care Health Support Group "},
 { label: "All Round Helping Hand Foundation", value: "All Round Helping Hand Foundation"},

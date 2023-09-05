@@ -34,7 +34,8 @@ import { UserListHead, UserListToolbar } from "../sections/@dashboard/user";
 // import surveys from "../_mock/user";
 import SelectSurvey from "src/components/modals/selectSurvey";
 import moment from "moment";
-import { useStore } from "src/store";
+import { useStore} from "src/store";
+import {deleteSurvey} from "src/store";
 import { shallow } from "zustand/shallow";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useUserAuth } from "src/context";
@@ -91,7 +92,7 @@ function applySortFilter(array, comparator, query) {
 }
 
 export default function Submission() {
-  const { surveys, users, loading, setLoading, fetchSurveys, getSurveys, setNotify } = useStore(
+  const { surveys, users, loading, setLoading, fetchSurveys, getSurveys, setNotify, deleteSurvey } = useStore(
     (state) => ({
       surveys: state?.surveys,
       loading: state?.loading,
@@ -100,6 +101,7 @@ export default function Submission() {
       getSurveys: state?.getSurveys,
       setNotify: state?.setNotify,
       users: state?.users,
+      deleteSurvey: state?.deleteSurvey,
     }),
     shallow
   );
@@ -206,6 +208,27 @@ export default function Submission() {
     setModalData({surveyId: id, name: name});
     setEditModalOpen(!isEditModalOpen);
   };
+
+// Define the handleDeleteSurvey function
+const handleDeleteSurvey = async (id, name) => {
+  if (window.confirm(`Are you sure you want to delete the survey "${name}"?`)) {
+    try {
+      await deleteSurvey(db, id);
+
+      // Handle success, show a notification, or update the UI as needed
+      setNotify({ open: true, message: `Survey "${id}" deleted successfully!`, type: 'success' });
+
+      // You may also want to refresh the list of surveys after deletion
+      // You can call the fetchSurveys function or update your state here.
+    } catch (error) {
+      // Handle errors here, show an error message, or log the error
+      console.error('Error deleting survey:', error);
+    }
+  }
+};
+
+
+
   const handleCloseMenu = () => {
     setOpen(null);
   };
@@ -472,6 +495,15 @@ export default function Submission() {
                                 >
                                   View
                                 </Button>
+
+                                <Button
+                                  variant="contained"
+                                  color="error"
+                                  onClick={() => handleDeleteSurvey(id, name)}
+                                >
+                                  Delete
+                                </Button>
+
                                 {/* <Button variant="outlined" color="error">
                                   Reject
                                 </Button> */}

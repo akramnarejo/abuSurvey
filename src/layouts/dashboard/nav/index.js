@@ -133,7 +133,7 @@ export default function Nav({ openNav, onCloseNav }) {
                     item?.path !== "/submission" &&
                     item?.path !== "/user-permissions" &&
                     item?.path !== "/admin-filemanager" &&
-                    item?.path !== "/visualizat"
+                    item?.path !== "/visualization"
                 )
           }
           sx={{ width: "100%", px: 2, flex: 3 }}
