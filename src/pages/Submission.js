@@ -211,7 +211,7 @@ export default function Submission() {
 
 // Define the handleDeleteSurvey function
 const handleDeleteSurvey = async (id, name) => {
-  if (window.confirm(`Are you sure you want to delete the survey "${name}"?`)) {
+  if (window.confirm(`Are you sure you want to delete this survey ?`)) {
     try {
       await deleteSurvey(db, id);
 

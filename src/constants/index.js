@@ -206,6 +206,33 @@ export const RESERVED_ORGANIZATIONS = {
     { label: "RAPAC", value: "RAPAC" },
     { label: "Redeemer All Initiative for People and Communities", value: "Redeemer All Initiative for People and Communities" },
 
+    { label: "Initiative for Livelihood Enhancement (ELI)", value: "Initiative for Livelihood Enhancement (ELI)"},
+    { label: "Socio-Economic and Conservation Organization (SECCO)", value: "Socio-Economic and Conservation Organization (SECCO)"},
+    { label: "Lafiya Jari Support Group", value: "Lafiya Jari Support Group"},
+    { label: "Community Health and Development Initiative (COHDI)", value: "Community Health and Development Initiative (COHDI)"},
+    { label: "Health Awareness and Rural Girls Education Initiative (HARGEI)", value: "Health Awareness and Rural Girls Education Initiative (HARGEI)"},
+    { label: "Walwala Support Group ", value: "Walwala Support Group "},
+    { label: "Village Community Development Initiative (VILDEV)", value: "Village Community Development Initiative (VILDEV)"},
+    { label: "Partnership for Development Action Foundation (PADAC)", value: "Partnership for Development Action Foundation (PADAC)"},
+    { label: "Maranda Development Association", value: "Maranda Development Association"},
+    { label: "Society for Community Health Awareness & Mobilization (SOCHAM)", value: "Society for Community Health Awareness & Mobilization (SOCHAM)"},
+    { label: "Society for Comprehensive Community Health (SCOCH)", value: "Society for Comprehensive Community Health (SCOCH)"},
+    { label: "Hadin Kai Support Group ", value: "Hadin Kai Support Group "},
+    { label: "Centre For Health and Development In Africa (CHEDA)", value: "Centre For Health and Development In Africa (CHEDA)"},
+    { label: "Hadejia Concerned Citizens Network (HCCN)", value: "Hadejia Concerned Citizens Network (HCCN)"},
+    { label: "Sardauna Support Group", value: "Sardauna Support Group"},
+
+    {label: "TENDER CARE INITATIVE", value: "TENDER CARE INITATIVE"},
+    {label: "CENTRE FOR POSITIVE HEALTH ORGANISATION", value: "CENTRE FOR POSITIVE HEALTH ORGANISATION"},
+    {label: "POSITIVE PROOF WOMEN HEALTHCARE EMPOWEREMENT INITATIVE", value: "POSITIVE PROOF WOMEN HEALTHCARE EMPOWEREMENT INITATIVE"},
+    {label: "COMMUNITY CARE AND DEVELOPMENT INITATIVE", value: "COMMUNITY CARE AND DEVELOPMENT INITATIVE"},
+    {label: "NIGERIA YOUTH AID PROGRAMME", value: "NIGERIA YOUTH AID PROGRAMME"},
+    {label: "COMMUNITY EMPOWEREMENT FOR PEACE AND HEALTH  INITIATIVE", value: "COMMUNITY EMPOWEREMENT FOR PEACE AND HEALTH  INITIATIVE"},
+
+
+
+
+
   ],
 
   nepwhan: [

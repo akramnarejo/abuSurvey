@@ -124,7 +124,7 @@ export const surveyData = {
           ],
         },
         {
-          name: "Please tell me why you came to the health facility today and what service(s) you received?",
+          name: "q2",
           type: "matrixdropdown",
           alternateRows: false,
           isAllRowRequired: true,
@@ -216,20 +216,7 @@ export const surveyData = {
             "Post-Exposure Prophylaxis",
             "Get tested",
           ],
-        },
-        {
-          name: "q6",
-          type: "checkbox",
-          title: "How do you prevent the following diseases COVID-19?",
-          isRequired: false,
-          choices: [
-            "Wear face mask in public",
-            "Keep a safe distance",
-            "Clean your hands often",
-            "Cover mouth & nose with bent elbow when you caught/sneeze",
-            "Vaccination",
-          ],
-        },
+        },        
         {
           name: "q7",
           type: "checkbox",
@@ -334,12 +321,30 @@ export const surveyData = {
           colCount: 2,
         },
         {
-          name: "q18",
-          type: "radiogroup",
-          title: "Have you experienced any form of stigma or discrimination?",
-          choices: ["YES", "NO"],
-          colCount: 2,
+          name: "q19",
+          type: "checkbox",
+	        alternateRows: false,
+          isAllRowRequired: true,
+          title:
+            "Please indicate where stigma and discrimination were experienced?",
           isRequired: false,
+          
+        	columns: [
+            {
+              name: "col1",
+              cellType: "checkbox",
+              showInMultipleColumns: true,              
+              choices: ["YES", "NO"],
+            },
+          ],
+          rows: [
+            "Home",
+            "Community",
+            "Health Facilities",
+            "Work Place",
+            "Religious Place",
+            "Other",
+          ],
         },
         {
           name: "q19",
@@ -507,15 +512,7 @@ export const surveyData = {
           colCount: 3,
           isRequired: false,
         },
-        {
-          type: "radiogroup",
-          name: "q35",
-          title:
-            "Does the facility offer MNCH Services including ANC, family planning etc.?",
-          choices: ["YES", "NO"],
-          colCount: 2,
-          isRequired: false,
-        },
+      
         {
           type: "radiogroup",
           name: "q36",
