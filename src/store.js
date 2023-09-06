@@ -106,17 +106,41 @@ let useStore = (set, get) => ({
   // },
   
 
+
   deleteUser: async (db, document, uid) => {
     set(() => ({loading: true}))
     set(() => ({users: get()?.users?.filter(user => user?.uid !== uid)}))
     await deleteDoc(doc(db, 'users', document));
     return;
   },
+
+  deleteSurvey: async (db, id) => {
+    set(() => ({ loading: true }));
+    // Update local state to remove the deleted survey
+    set(() => ({surveys: get()?.surveys?.filter(survey => survey?.id !== id)}))
+    
+    await deleteDoc(doc(db, 'surveys', id));
+    set(() => ({ loading: false }));
+  },
+
+  //Abubakar: Added deleteSurvey function
+  // deleteSurvey: async (db, id) => {
+  //   set(() => ({ loading: true }));
+  //   // Update local state to remove the deleted survey
+  //   set(() => ({
+  //     surveys: get().surveys.filter(survey => survey.id !== id)
+  //   }));
+  //   await deleteDoc(doc(db, 'surveys', id));
+  //   set(() => ({ loading: false }));
+  // },
+
+
   updateUser: async (db, document, data) => {
     set(() => ({loading: true}))
     await updateDoc(doc(db, 'users', document), data);
     return;
   },
+
 });
 
 useStore = persist(useStore, {
