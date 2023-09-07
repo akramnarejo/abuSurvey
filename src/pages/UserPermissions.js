@@ -546,7 +546,7 @@ export default function UserPermissions() {
           </Scrollbar>
 
           <TablePagination
-            rowsPerPageOptions={[8, 15, 25, 50, 100]}
+            rowsPerPageOptions={[8, 15, 25]}
             component="div"
             count={filterUsers?.length}
             rowsPerPage={rowsPerPage}
