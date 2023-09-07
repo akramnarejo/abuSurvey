@@ -202,6 +202,9 @@ export default function Files() {
     var link = document.createElement("a");
     link.href = imageUrl;
     link.download = `${name}`; // Name for the downloaded file
+
+    // Call the Firebase Cloud Function to download the file
+    window.open(`/downloadFile?fileName=${name}`, "_blank");
     
     // Trigger a click event on the link element
     document.body.appendChild(link);
