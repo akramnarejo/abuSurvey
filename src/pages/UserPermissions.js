@@ -117,6 +117,8 @@ export default function UserPermissions() {
     shallow
   );
 
+  console.log('2222222222222222222222222')
+
   const { db } = useUserAuth();
 
   const [open, setOpen] = useState(null);
@@ -215,20 +217,26 @@ export default function UserPermissions() {
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const handleFilterByName = (event) => {
+  const handleFilterByName = (name) => {
     setPage(0);
-    setFilterName(event.target.value);
+    setFilterName(name);
   };
 
   const handleFilterUsers = (filters) => {
-    const { stateFilter, lgaFilter } = filters;
-    if (stateFilter || lgaFilter) {
+    const { stateFilter, lgaFilter,organizationFilter, reservedOrgFilter } = filters;
+    if (stateFilter || lgaFilter || organizationFilter || reservedOrgFilter) {
       let data = users;
       if (stateFilter) {
         data = data?.filter((item) => item?.state === stateFilter);
       }
       if (lgaFilter) {
         data = data?.filter((item) => item?.lga === lgaFilter);
+      }
+      if(organizationFilter){
+        data = data?.filter(item => item?.organization === organizationFilter)
+      }
+      if(reservedOrgFilter){
+        data = data?.filter(item => item?.reservedOrg === reservedOrgFilter)
       }
       setFilterUsers(data);
     } else {
@@ -333,6 +341,7 @@ export default function UserPermissions() {
             filterName={filterName}
             onFilterName={handleFilterByName}
             handleFilterUsers={handleFilterUsers}
+            filterUsers={filterUsers}
           />
 
           <Scrollbar>

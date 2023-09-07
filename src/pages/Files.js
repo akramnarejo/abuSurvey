@@ -44,7 +44,7 @@ import { RESERVED_ORGANIZATIONS } from "src/constants";
 
 const TABLE_HEAD = [
   { id: "name", label: "File Name", alignRight: false },
-  { id: "createdBy", label: "Uploaded By", alignRight: false },  
+  { id: "createdBy", label: "Uploaded By", alignRight: false },
   { id: "organization", label: "Organization", alignRight: false },
   { id: "reservedOrg", label: "Reserved Organization", alignRight: false },
   { id: "action", label: "Action", alignRight: false },
@@ -78,16 +78,25 @@ function applySortFilter(array, comparator, query) {
   if (query) {
     return filter(
       array,
-      (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 || 
-      _user.organization.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      
+      (_user) =>
+        _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+        _user.organization.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis?.map((el) => el[0]);
 }
 
 export default function Files() {
-  const { surveys, users, loading, setLoading, fetchSurveys, getSurveys, setNotify, files } = useStore(
+  const {
+    surveys,
+    users,
+    loading,
+    setLoading,
+    fetchSurveys,
+    getSurveys,
+    setNotify,
+    files,
+  } = useStore(
     (state) => ({
       surveys: state?.surveys,
       loading: state?.loading,
@@ -101,7 +110,7 @@ export default function Files() {
     shallow
   );
 
-  const { db } = useUserAuth();
+  const { db, handleDownloadFile } = useUserAuth();
 
   console.log("-----------Surveys: ", surveys);
   console.log("-----------files: ", files);
@@ -119,14 +128,11 @@ export default function Files() {
 
   const [rowsPerPage, setRowsPerPage] = useState(8);
 
-  const [filteredSurveys, setFilteredSurveys] = useState(
-    files
-  );
+  const [filteredSurveys, setFilteredSurveys] = useState(files);
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
-
 
   const handleCloseMenu = () => {
     setOpen(null);
@@ -192,25 +198,6 @@ export default function Files() {
 
   const isNotFound =
     (!filteredUsers?.length && !!filterName) || filteredSurveys?.length === 0;
-
-
-  const handleDownloadFile = (name,url) => {
-    // Replace this with the URL of the image you want to download
-    var imageUrl = `${url}`;
-      
-    // Create a temporary link element
-    var link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = `${name}`; // Name for the downloaded file
-
-    // Call the Firebase Cloud Function to download the file
-    window.open(`/downloadFile?fileName=${name}`, "_blank");
-    
-    // Trigger a click event on the link element
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
 
   return (
     <>
@@ -331,14 +318,12 @@ export default function Files() {
                             />
                           </TableCell> */}
 
-                          
                             <TableCell component="th" scope="row">
                               <Stack
                                 direction="row"
                                 alignItems="center"
                                 spacing={2}
                               >
-                                
                                 {/* <Avatar alt={name} src={avatarUrl} /> */}
                                 <Typography variant="subtitle2" noWrap>
                                   {name}
@@ -347,9 +332,15 @@ export default function Files() {
                             </TableCell>
                             <TableCell align="left">{createdBy}</TableCell>
                             <TableCell align="left">{organization}</TableCell>
-                            <TableCell align="left">{users?.find(item => item?.email === createdBy)?.reservedOrg ?? "-"}</TableCell>
-                            <TableCell align="left" sx={{color: '#2ba5d7'}} onClick={() => handleDownloadFile(name,url)}>download</TableCell>
-                           
+                            <TableCell align="left">
+                              {users?.find((item) => item?.email === createdBy)
+                                ?.reservedOrg ?? "-"}
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              sx={{ color: "#2ba5d7" }}
+                              onClick={() => handleDownloadFile(url)}
+                            >Download</TableCell>
 
                             {/* <TableCell align="left">
                             {isVerified ? "Yes" : "No"}
@@ -368,8 +359,6 @@ export default function Files() {
                                 {status}
                               </Label>
                             </TableCell> */}
-
-                           
 
                             {/* <TableCell
                               sx={{

@@ -8,7 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { auth, db, getDownloadURL, ref, storage } from "../firebase";
 import { useStore } from "src/store";
 import { shallow } from "zustand/shallow";
 
@@ -28,7 +28,7 @@ export function UserAuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
   function signUp(email, password) {
-    setLoading(true)
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   }
   function logOut() {
@@ -38,8 +38,8 @@ export function UserAuthContextProvider({ children }) {
     const googleAuthProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleAuthProvider);
   }
-  async function createUser(data){
-    await addDoc(collection(db, 'users'), data);
+  async function createUser(data) {
+    await addDoc(collection(db, "users"), data);
   }
 
   useEffect(() => {
@@ -54,10 +54,32 @@ export function UserAuthContextProvider({ children }) {
   }, [auth]);
 
   // indexDB
+  const handleDownloadFile = (url) => {
+    getDownloadURL(ref(storage, url))
+      .then((url) => {
+        // `url` is the download URL for 'images/stars.jpg'
+
+        // This can be downloaded directly:
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = "blob";
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+        };
+        xhr.open("GET", url);
+        xhr.send();
+
+        // Or inserted into an <img> element
+        // const img = document.getElementById("myimg");
+        // img.setAttribute("src", url);
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+  };
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp, logOut, googleSignIn, createUser, db }}
+      value={{ user, logIn, signUp, logOut, googleSignIn, createUser, db, handleDownloadFile }}
     >
       {children}
     </userAuthContext.Provider>
