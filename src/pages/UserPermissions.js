@@ -42,6 +42,7 @@ import { useUserAuth } from "src/context";
 import { collection, documentId, getDocs } from "firebase/firestore";
 import { auth } from "../firebase";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import Search from "src/components/search";
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -335,7 +336,6 @@ export default function UserPermissions() {
           
         </Box>
 
-        <Card>
           <UserListToolbar
             numSelected={selected?.length}
             filterName={filterName}
@@ -343,7 +343,8 @@ export default function UserPermissions() {
             handleFilterUsers={handleFilterUsers}
             filterUsers={filterUsers}
           />
-
+        <Card>
+          <Search filterName={filterName} handleFilterByName={handleFilterByName}/>
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
