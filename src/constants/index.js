@@ -373,9 +373,7 @@ tb: [
     { label: "Women Environment and Youth Development Initiative (WOYODEV)", value: "Women Environment and Youth Development Initiative (WOYODEV)" },
     { label: "Theios Caregivers Initiative", value: "Theios Caregivers Initiative" },
     { label: "All Round Helping Hand Foundation", value: "All Round Helping Hand Foundation" },
-    { label: "Vertex of Hope Initiative (VOHI)", value: "Vertex of Hope Initiative (VOHI)" },
-
-   
+    { label: "Vertex of Hope Initiative (VOHI)", value: "Vertex of Hope Initiative (VOHI)" },   
     {label: "TENDER CARE INITATIVE", value: "TENDER CARE INITATIVE"},
     {label: "COMMUNITY AID DEVELOPMENT FOUNDATION", value: "COMMUNITY AID DEVELOPMENT FOUNDATION"},
     {label: "RHODA HAVEN NETWORK FOR WOMEN LIVING WITH HIV/AIDS", value: "RHODA HAVEN NETWORK FOR WOMEN LIVING WITH HIV/AIDS"},
@@ -388,11 +386,10 @@ tb: [
     {label: "DAVE ENECHUKWU FOUNDATION", value: "DAVE ENECHUKWU FOUNDATION"},
     {label: "HEALTH MATTERS INCORPORATED", value: "HEALTH MATTERS INCORPORATED"},
     {label: "COMMUNITY CARE AND DEVELOPMENT INITATIVE", value: "COMMUNITY CARE AND DEVELOPMENT INITATIVE"},
-    {label: " NIGERIA YOUTH AID PROGRAMME", value: " NIGERIA YOUTH AID PROGRAMME"},
+    {label: "NIGERIA YOUTH AID PROGRAMME", value: " NIGERIA YOUTH AID PROGRAMME"},
     {label: "HEALTH AWARENESS AND GENDER ADVOCACY ", value: "HEALTH AWARENESS AND GENDER ADVOCACY "},
     {label: "COMMUNITY EMPOWEREMENT FOR PEACE AND HEALTH  INITIATIVE", value: "COMMUNITY EMPOWEREMENT FOR PEACE AND HEALTH  INITIATIVE"},
-    {label: "COMMUNITY CARE AND DEVELOPMENT INITATIVE", value: "COMMUNITY CARE AND DEVELOPMENT INITATIVE"},
-    
+    {label: "COMMUNITY CARE AND DEVELOPMENT INITATIVE", value: "COMMUNITY CARE AND DEVELOPMENT INITATIVE"},    
     { label: "Initiative for Livelihood Enhancement (ELI)", value: "Initiative for Livelihood Enhancement (ELI)"},
     { label: "Socio-Economic and Conservation Organization (SECCO)", value: "Socio-Economic and Conservation Organization (SECCO)"},
     { label: "Lafiya Jari Support Group", value: "Lafiya Jari Support Group"},
