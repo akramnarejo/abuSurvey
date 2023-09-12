@@ -43,41 +43,7 @@ export const surveyData = {
         },
 
         {
-          name: "q2",
-          type: "checkboxes",
-          title:
-            "What resources are required to provide COVID-19, HIV/AIDS, TB and Malaria services effectively? (Choose as many as applicable)",
-          choices: [
-            "Human Resources",
-            "Training",
-            "Consumables",
-            "Non-consumables",
-            "Others",
-          ],
-          isRequired: true,
-          placeholder: "Please specify",
-        },
-
-        {
-          name: "q3a",
-          type: "checkboxes",
-          title:
-            "What are the resources available (quantity) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
-          choices: ["Human Resources", "Training", "Others"],
-          isRequired: true,
-          placeholder: "Please specify",
-        },
-
-        {
-          name: "q3b",
-          type: "text",
-          title:
-            "What is the level of knowledge available (quality) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
-          placeholder: " ",
-        },
-
-        {
-          name: "Please confirm the availability and sufficiency of these resources",
+          name: "q2", //This is renamed because it has the Question as a name.
           type: "matrixdropdown",
           title:
             "Please confirm the availability and sufficiency of these resources",
