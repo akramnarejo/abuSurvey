@@ -14,6 +14,27 @@ export const surveyData = {
         },
 
         {
+          name: "nameofinterviewee",
+          type: "text",
+          title: "Name of Interviewee",
+          placeholder: "Enter Name of Interviewee",
+        },
+
+        {
+          name: "designation",
+          type: "text",
+          title: "Designation",
+          placeholder: "Enter Designation",
+        },
+
+        {
+          name: "phoneNo",
+          type: "text",
+          title: "Phone No",
+          placeholder: "Enter Phone No",
+        },
+
+        {
           type: "radiogroup",
           name: "q1",
           title:
@@ -77,7 +98,7 @@ export const surveyData = {
         },
 
         {
-          name: "Please confirm the availability and sufficiency of these resources",
+          name: "q3c",
           type: "matrixdropdown",
           title:
             "Please confirm the availability and sufficiency of these resources",
