@@ -29,6 +29,14 @@ export const surveyData = {
           isRequired: false,
         },
         {
+          type: "text",
+          name: "childsdependentname",
+          startWithNewLine: false,
+          title: "Child’s (Dependents) Name (Where Applicable)",
+          placeholder: "Enter Child's Dependent Name",
+          isRequired: false,
+        },
+        {
           type: "radiogroup",
           name: "gender",
           title: "Gender",
