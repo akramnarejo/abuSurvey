@@ -9,9 +9,40 @@ export const QUESTIONS = [
   {
     survey: "Kii Health Facility",
     question: "q2",
+    title: "What resources are required to provide COVID-19, HIV/AIDS, TB and Malaria services effectively? (Choose as many as applicable)",
+    options: [
+      "Human Resources",
+      "Training",
+      "Consumables",
+      "Non-consumables",
+      "Others",
+    ],
+  },
+  {
+    survey: "Kii Health Facility",
+    question: "q2",
     title: "Please confirm the availability and sufficiency of these resources",
     options: [
       "Available", "Sufficient" ],
+  },
+  {
+    survey: "Kii Health Facility",
+    question: "q3a",
+    title:
+      "What are the resources available (quantity) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
+    choices: ["Human Resources", "Training", "Others"],
+  },
+  {
+    survey: "Kii Health Facility",
+    question: "q3b",
+    title:
+      "What is the level of knowledge available (quality) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
+  },
+  {
+    survey: "Kii Health Facility",
+    question: "q3d",
+    title: "Who is responsible for providing these resources?",
+    placeholder: "Please specify",
   },
   {
     survey: "Kii Health Facility",
