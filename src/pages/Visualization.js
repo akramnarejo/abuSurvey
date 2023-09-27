@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from "react-select";
-import {SURVEYS} from 'src/constants'
+import {SURVEYS, QUESTIONS} from 'src/constants'
 import { useStore} from "src/store";
 import { shallow } from "zustand/shallow";
 const Visualization = () => {
@@ -12,10 +12,23 @@ const Visualization = () => {
     shallow
   );
 
-  if(survey){
-    const found = surveys?.find(item => item?.name === survey?.label)
-    console.log("---+++++++----------++++++++++: ", JSON.parse(found?.data))
+
+  useEffect(() => {
+    const selectedSurveys = surveys?.filter(item => item?.name === survey?.label)
+    // console.log('---------selected survyes: ', selectedSurveys?.length, selectedSurveys)
+    createQuestions(selectedSurveys)
+  }, [survey])
+
+  const createQuestions = items => {
+    if(items?.length){
+      console.log('===================================================================================================')
+      items?.map(item => {
+        const data = JSON.parse(item?.data)
+        console.log(data)
+      })
+    }
   }
+
   return (
     <>
         <h2>Visualization</h2>

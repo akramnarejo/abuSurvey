@@ -20,23 +20,23 @@ export const QUESTIONS = [
   },
   {
     survey: "Kii Health Facility",
-    question: "q2",
-    title: "Please confirm the availability and sufficiency of these resources",
-    options: [
-      "Available", "Sufficient" ],
-  },
-  {
-    survey: "Kii Health Facility",
     question: "q3a",
     title:
-      "What are the resources available (quantity) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
+    "What are the resources available (quantity) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
     choices: ["Human Resources", "Training", "Others"],
   },
   {
     survey: "Kii Health Facility",
     question: "q3b",
     title:
-      "What is the level of knowledge available (quality) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
+    "What is the level of knowledge available (quality) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
+  },
+  {
+    survey: "Kii Health Facility",
+    question: "q3c",
+    title: "Please confirm the availability and sufficiency of these resources",
+    options: [
+      "Available", "Sufficient" ],
   },
   {
     survey: "Kii Health Facility",
@@ -50,7 +50,6 @@ export const QUESTIONS = [
     title:"What is the level of security available in this facility? ",
     options: ["Perimeter Fencing", "Burglar Proof", "Security Personnel"],
   },
-
   {
     survey: "Kii Health Facility",
     question: "q4",
@@ -60,7 +59,6 @@ export const QUESTIONS = [
     "20 - 30 thousand",
     "Others"],
   },
-
   {
     survey: "Kii Health Facility",
     question: "q5",
