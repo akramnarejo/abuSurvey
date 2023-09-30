@@ -24,8 +24,6 @@ const Visualization = () => {
         });
         surveyQuestions[item?.question] = { title: item?.title, options };
       });
-      // setQuestions(surveyQuestions)
-      console.log("------questions before: ", surveyQuestions);
       const selectedSurveys = surveys?.filter(
         (item) => item?.name === survey?.label
       );
@@ -70,7 +68,6 @@ const Visualization = () => {
     }
   }, [survey]);
   
-  console.log("------questions after: ", questions);
   return (
     <>
       <h2>Visualization</h2>
