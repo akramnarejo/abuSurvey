@@ -1,110 +1,87 @@
-export const QUESTIONS = [
-  {
-    survey: "Kii Health Facility",
-    question: "q1",
-    title:
-      "Please tell me about the COVID-19, HIV/AIDS, TB and Malaria services you offer in this health facility:",
-    options: ["excellent", "good", "poor", "other"],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q2",
-    title: "What resources are required to provide COVID-19, HIV/AIDS, TB and Malaria services effectively? (Choose as many as applicable)",
-    options: [
-      "Human Resources",
-      "Training",
-      "Consumables",
-      "Non-consumables",
-      "Others",
-    ],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q3a",
-    title:
-    "What are the resources available (quantity) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
-    choices: ["Human Resources", "Training", "Others"],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q3b",
-    title:
-    "What is the level of knowledge available (quality) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q3c",
-    title: "Please confirm the availability and sufficiency of these resources",
-    options: [
-      "Available", "Sufficient" ],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q3d",
-    title: "Who is responsible for providing these resources?",
-    placeholder: "Please specify",
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q3e",
-    title:"What is the level of security available in this facility? ",
-    options: ["Perimeter Fencing", "Burglar Proof", "Security Personnel"],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q4",
-    title:"What is the current monthly inflow of patients seeking COVID-19, HIV/AIDS, TB and Malaria services at the facility? ",
-    options: ["1 - 9 Hundred ",
-    "10 - 20 thousand",
-    "20 - 30 thousand",
-    "Others"],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q5",
-    title:"What is the monthly patients-service provider ratio?",
-    options: ["2:2", "2:4", "2:6", "others"],
-  },
-  
-  {
-    survey: "Kii Health Facility",
-    question: "q6",
-    title:"Can you tell me about the challenges currently faced in delivering COVID-19, HIV/AIDS, TB and Malaria services?",
-    options: ["Inadequate Skilled Personnel",
-    "Stock out of malaria commodities",
-    "Inadequate infrastructures",
-    "Others"],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q7",
-    title:"What is the level of community structure involvement in COVID-19, HIV/AIDS, TB and Malaria service delivery?",
-    options: ["Active", "Non-Active", "Indifferent"],
-  },
+export const QUESTIONS = {
+  "Kii Health Facility": [
+    {
+      question: 'q1',
+      title:
+        "Please tell me about the COVID-19, HIV/AIDS, TB and Malaria services you offer in this health facility:",
+      options: ["excellent", "good", "poor", "other"],
+    },
+    // {
+    //   question: 'q2',
+    //   title:
+    //     "What resources are required to provide COVID-19, HIV/AIDS, TB and Malaria services effectively? (Choose as many as applicable)",
+    //   options: [
+    //     "Human Resources",
+    //     "Training",
+    //     "Consumables",
+    //     "Non-consumables",
+    //     "Others",
+    //   ],
+    // },
+    // {
+    //   question: 'q3a',
+    //   title:
+    //     "What are the resources available (quantity) to ensure COVID-19, HIV/AIDS, TB and Malaria service delivery? ",
+    //   options: ["Human Resources", "Training", "Others"],
+    // },
+    // {
+    //   question: 'q3c',
+    //   title:
+    //     "Please confirm the availability and sufficiency of these resources",
+    //   options: ["Available", "Sufficient"],
+    // },
+    {
+      question: 'q3e',
+      title: "What is the level of security available in this facility? ",
+      options: ["Perimeter Fencing", "Burglar Proof", "Security Personnel"],
+    },
+    {
+      question: 'q4',
+      title:
+        "What is the current monthly inflow of patients seeking COVID-19, HIV/AIDS, TB and Malaria services at the facility? ",
+      options: [
+        "1 - 9 Hundred ",
+        "10 - 20 thousand",
+        "20 - 30 thousand",
+        "Others",
+      ],
+    },
+     {
+      question: 'q5',
+      title: "What is the monthly patients-service provider ratio?",
+      options: ["2:2", "2:4", "2:6", "others"],
+    },
 
-  {
-    survey: "Kii Health Facility",
-    question: "q8",
-    title:"Are Personal Protective Equipment (PPE) in your facility sufficient?",
-    options: ["Sufficient", "Non-Sufficient", "None"],
-  },
-  {
-    survey: "Kii Health Facility",
-    question: "q9",
-    title:"Are the community people using PPE correctly and at all times? ",
-    options: ["Sufficient", "Non-Sufficient", "None"],
-  },   
-  // {
-  //   survey: "ATM Client Exist Interview Survey",
-  //   question: "",
-  //   title:" ",
-  //   options: [""],
-  // },  
-
-  
-
-
-];
+     {
+      question:'q6',
+      title:
+        "Can you tell me about the challenges currently faced in delivering COVID-19, HIV/AIDS, TB and Malaria services?",
+      options: [
+        "Inadequate Skilled Personnel",
+        "Stock out of malaria commodities",
+        "Inadequate infrastructures",
+        "Others",
+      ],
+    },
+    {
+      question:"q7",
+      title:
+        "What is the level of community structure involvement in COVID-19, HIV/AIDS, TB and Malaria service delivery?",
+      options: ["Active", "Non-Active", "Indifferent"],
+    },
+    { 
+      question: 'q8',
+      title:
+        "Are Personal Protective Equipment (PPE) in your facility sufficient?",
+      options: ["Sufficient", "Non-Sufficient", "None"],
+    },
+    {
+      question: 'q9',
+      title: "Are the community people using PPE correctly and at all times? ",
+      options: ["Sufficient", "Non-Sufficient", "None"],
+    },
+  ],
+};
 
 export const SURVEYS = [
   "ATM Client Exist Interview Survey",
