@@ -41,6 +41,7 @@ import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 import { useUserAuth } from "src/context";
 import ViewSurveyModal from "src/components/modals/viewModal";
 import { RESERVED_ORGANIZATIONS } from "src/constants";
+import Search from "src/components/search";
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -275,9 +276,9 @@ const handleDeleteSurvey = async (id, name) => {
     setRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const handleFilterByName = (event) => {
+  const handleFilterByName = (name) => {
     setPage(0);
-    setFilterName(event.target.value);
+    setFilterName(name);
   };
 
   const emptyRows =
@@ -319,15 +320,13 @@ const handleDeleteSurvey = async (id, name) => {
           </Typography>
         </Stack>
 
-        <Card>
           <UserListToolbar
             numSelected={selected?.length}
-            filterName={filterName}
-            onFilterName={handleFilterByName}
             handleFilterSurveys={handleFilterSurveys}
             filteredSurveys={filteredSurveys}
           />
-
+        <Card>
+        <Search filterName={filterName} handleFilterByName={handleFilterByName}/>
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
