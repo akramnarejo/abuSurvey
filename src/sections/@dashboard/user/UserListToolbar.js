@@ -52,21 +52,7 @@ const StyledFiltersbar = styled(Toolbar)(({ theme }) => ({
   background: "#F9FAFB",
 }));
 
-const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
-  width: "100%",
-  height: "auto",
-  transition: theme.transitions.create(["box-shadow", "width"], {
-    easing: theme.transitions.easing.easeInOut,
-    duration: theme.transitions.duration.shorter,
-  }),
-  "&.Mui-focused": {
-    boxShadow: theme.customShadows.z8,
-  },
-  "& fieldset": {
-    borderWidth: `1px !important`,
-    borderColor: `${alpha(theme.palette.grey[500], 0.32)} !important`,
-  },
-}));
+
 
 // ----------------------------------------------------------------------
 
@@ -78,8 +64,6 @@ UserListToolbar.propTypes = {
 
 export default function UserListToolbar({
   numSelected,
-  filterName,
-  onFilterName,
   handleFilterSurveys = () => {},
   handleFilterUsers = () => {},
   filteredSurveys,
@@ -143,8 +127,6 @@ export default function UserListToolbar({
     //   justifyContent: "center", // Center items horizontally on smaller screens
     // },
   });
-
-  const handleChangeNameFilter = e => onFilterName(e.target.value)
 
   return (
     <StyledRoot
@@ -379,22 +361,6 @@ export default function UserListToolbar({
                 </Box>
               </>
             )}
-
-            {/* <Box>
-              <StyledSearch
-                value={filterName}
-                onChange={handleChangeNameFilter}
-                placeholder="Search..."
-                startAdornment={
-                  <InputAdornment position="start">
-                    <Iconify
-                      icon="eva:search-fill"
-                      sx={{ color: "text.disabled", width: 20, height: 20 }}
-                    />
-                  </InputAdornment>
-                }
-              />
-            </Box> */}
           </FlexContainer>
 
           {window.location.pathname === "/submission" && (
