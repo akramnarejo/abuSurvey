@@ -1052,7 +1052,7 @@ export const RESERVED_ORGANIZATIONS = {
     },
     { label: "OSHLA SUPPORT GROUP", value: "OSHLA SUPPORT GROUP" },
     { label: "SOURCE OF HOPE FOUNDATION", value: "SOURCE OF HOPE FOUNDATION" },
-<<<<<<< HEAD
+
     { label: "CENTRE FOR WOMEN,YOUTH AND COMMUNITY ACTION", value: "CENTRE FOR WOMEN,YOUTH AND COMMUNITY ACTION" },
     { label: "JEVARROM LIFE SUPPORT FOUNDATION", value: "JEVARROM LIFE SUPPORT FOUNDATION" },
     { label: "INITIATIVE FOR PREVENTION AND CONTROL OF DISEASES", value: "INITIATIVE FOR PREVENTION AND CONTROL OF DISEASES" },
@@ -1093,9 +1093,7 @@ export const RESERVED_ORGANIZATIONS = {
     { label: "Hadejia Concerned Citizens Network (HCCN)", value: "Hadejia Concerned Citizens Network (HCCN)"},
     { label: "Sardauna Support Group", value: "Sardauna Support Group"},
 
-  ]
-=======
-    { label: "KAUNA SUPPORT GROUP", value: "KAUNA SUPPORT GROUP" },
+    { label: "KAUNA SUPPORT GROUP", value: "KAUNA SUPPORT GROUP", },
     {
       label: "CENTRE FOR WOMEN,YOUTH AND COMMUNITY ACTION",
       value: "CENTRE FOR WOMEN,YOUTH AND COMMUNITY ACTION",
@@ -1190,7 +1188,6 @@ export const RESERVED_ORGANIZATIONS = {
       value: "Belawu Ajoke Child and Women Foundation",
     },
   ],
->>>>>>> b030d62046f2fa8721cad8eb02fe4c5c6442fd78
 
   tb: [
     { label: "HeaIthy Living and Social Development Foundation ", value: "TB" },
