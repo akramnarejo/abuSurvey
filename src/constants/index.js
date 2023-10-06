@@ -1,4 +1,225 @@
+
+
 export const QUESTIONS = {
+
+  "ATM Client Exist Interview Survey": [
+    
+    {
+      question: 'q1',
+      title:
+        "gender",
+      options: ["male", "female"],
+    },
+
+   {
+      question: 'q2',
+      title: " Age Range ",
+      options: ["00-20th", "21-30th", "31-40th", "> 40th"],
+    },
+
+
+   {
+      question: 'q3',
+      title: "Educational Background",
+      options: ["No Formal Education", "Primary Education", "Secondary Education", "Vocational School","University/Polytechnic", "Post Graduate", "Others"],
+    },
+
+ {
+      question: 'q4',
+      title: "Reason for Visit and Services Received",
+      rows: [
+        "COVID-19",
+        "HIV/AIDS Services",
+        "Malaria Services",
+        "Tubercolusis(TB) Services",
+        "Don't know",
+      ],
+      columns: ["Which one you came for", "which one you received"]
+ },
+
+
+    {
+      question: 'q5',
+      title: "How many times have you visited the health facility in the last 3 months for health care services?",
+      options: ["0 Times", "1-3 Times", "4-6 Times", "7-9 Times", "Above 10 Times"],
+    },
+    {
+      question: 'q6',
+      title: "How do you prevent the following diseases COVID-19?",
+      options: ["Wear face mask in public", "Keep a safe distance", "Clean your hands often", "Cover mouth & nose with bent elbow when you caught/sneeze", "Vaccination"],
+    },
+    {
+      question: 'q7',
+      title: "How do you prevent the following diseases HIV/AIDS?",
+      options: ["Abstinence", "Right use of condom", "Never sharing sharp objects", "Pre-Exposure Prophylaxis", "Post-Exposure Prophylaxis", "Get tested"],
+    },
+    {
+      question: 'q8',
+      title: "How do you prevent the following diseases Malaria?",
+      options: ["LLIN", "Use of antimalaria drugs", "Use of mosquito repellent"],
+    },
+    {
+      question: 'q9',
+      title: "How do you prevent the following diseases Tuberculosis (TB)?",
+      options: ["TPT", "Wear face mask", "Others"],
+    },
+    {
+      question: 'q10',
+      title: "Have you Received information on prevention of COVID-19",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q11',
+      title: "Have you Received information on prevention of HIV/AIDS",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q12',
+      title: "Have you Received information on prevention of Malaria",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q13',
+      title: "Have you Received information on prevention of Tuberculosis (TB)",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q14',
+      title: "If you yes, what is your Source of information",
+      options: ["Health Facility", "Community", "Mass Media", "Other"],
+    },
+    {
+      question: 'q15',
+      title: "Were you Given any medication/refill",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q16',
+      title: "Experienced any side effect or drug reaction",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q17',
+      title: "Are Services provided based on respect for human rights?",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q19',
+      title: "Places where stigma and discrimination were experienced",
+      options: ["Home", "Community", "Health Facilities", "Work Place", "Religious Place", "Other"],
+    },
+    {
+      question: 'q20',
+      title: "Has anyone including your parents or partner(s) ever Prevented from accessing health care services",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q22',
+      title: "Can you easily get to the health facility?",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q23',
+      title: "Were you Attended to by a health worker",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q24',
+      title: "Does the facility offer MNCH services",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q25',
+      title: "Are you Aware of any free services for COVID-19",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q26',
+      title: "Are you Aware of free services for HIV/AIDS",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q27',
+      title: "Are you Aware of free services for Malaria",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q28',
+      title: "Are you Aware of free services for Tuberculosis (TB)",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q29',
+      title: "Have you ever been denied access to free services",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q31',
+      title: "Are COVID-19 services offered in the facility",
+      options: ["Yes", "No"],
+    },
+    {
+      question: 'q32',
+      title: "How close is the Proximity to nearest facility offering COVID-19 Services",
+      options: ["Less Than 30 Minutes", "Above 30 Minutes", "Don't Know"],
+    },
+    {
+      question: 'q33',
+      title: "What is the Average waiting time for service provision?",
+      options: ["Less than 30 Mins", "1-2 hours", "3-4 hours", "More than 5 hours"],
+    },
+    {
+      question: 'q34',
+      title: "How would you describe the Attitude of the health workers",
+      options: ["Satisfactory", "Unsatisfactory", "Don't know"],
+    },
+    {
+      question: 'q36',
+      title: "Did you pay to receive any of these services at the health facility for COVID-19",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q37',
+      title: "Did you pay to receive any of these services at the health facility for HIV/AIDS services",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q38',
+      title: "Did you pay to receive any of these services at the health facility for Malaria services",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q39',
+      title: "Did you pay to receive any of these services at the health facility for Tuberculosis (TB) services",
+      options: ["YES", "NO"],
+    },
+    {
+      question: 'q40',
+      title: "Did you experience any form of Discomfort being attended to by a Male or Female health worker",
+	options: ["YES", "NO"],
+	},
+{
+question: 'q41',
+title: "Do you experience any form of discrimination while accessing services",
+options: ["YES", "NO"],
+},
+{
+question: 'q42',
+title: "How do you assess the quality of the service received",
+options: ["Dissatisfied", "Satisfied", "No Option"],
+},
+{
+question: 'q44',
+title: "Do you think the Facility has enough health workers for quality service",
+options: ["YES", "NO"],
+},
+{
+question: 'q45',
+title: "What do you think about the time you spent in the facility?",
+options: ["Too Long", "Indifferent", "Just right"],
+},
+],
+
   "Kii Health Facility": [
     {
       question: 'q1',
