@@ -659,10 +659,9 @@ export const RESERVED_ORGANIZATIONS = {
     { label: "PRIMHEMAC", value: "PRIMHEMAC" },
     { label: "Farmers Development Union", value: "Farmers Development Union" },
     { label: "RAPAC", value: "RAPAC" },
-<<<<<<< HEAD
+
     { label: "Redeemer All Initiative for People and Communities", value: "Redeemer All Initiative for People and Communities" },
       
-=======
     {
       label: "Redeemer All Initiative for People and Communities",
       value: "Redeemer All Initiative for People and Communities",
