@@ -965,6 +965,17 @@ export const RESERVED_ORGANIZATIONS = {
       label: "Federation of Muslim Women Association in Nigeria (FOMWAN)",
       value: "Federation of Muslim Women Association in Nigeria (FOMWAN)",
     },
+
+    {
+      label: "Healthy Lifestyle for the Less Previleged",
+      value: "Healthy Lifestyle for the Less Previleged",
+    },
+
+    {
+      label: "Center for Grassroots Community Education and Development CGCE",
+      value: "Center for Grassroots Community Education and Development CGCE",
+    },
+
     {
       label: "Social Positive Change Initiative (SPCI)",
       value: "Social Positive Change Initiative (SPCI)",
