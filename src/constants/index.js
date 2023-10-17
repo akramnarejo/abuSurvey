@@ -357,12 +357,12 @@ export const RESERVED_STATES = {
   nepwhan: [
     { label: "Kano", value: "kano" },
     { label: "Gombe", value: "gombe" },
-    { label: "Nasarawa", value: "nasarawa" },
+    { label: "Nassarawa", value: "nassarawa" },
     { label: "Plateau", value: "plateau" },
     { label: "Kwara", value: "kwara" },
     { label: "Oyo", value: "oyo" },
     { label: "Ondo", value: "ondo" },
-    { label: "Kaduna", value: "kanduna" },
+    { label: "Kaduna", value: "kaduna" },
   ],
   tb: [
     { label: "Jigawa", value: "jigawa" },
@@ -2412,7 +2412,7 @@ export const LGAs = {
     { label: "Madobi", value: "Madobi" },
     { label: "Makoda", value: "Makoda" },
     { label: "Minjibir", value: "Minjibir" },
-    { label: "Nasarawa", value: "Nasarawa" },
+    { label: "Nassarawa", value: "Nassarawa" },
     { label: "Rano", value: "Rano" },
     { label: "Rimin Gado", value: "Rimin Gado" },
     { label: "Rogo", value: "Rogo" },
@@ -2802,12 +2802,12 @@ export const LGAs = {
       value: "Lafia",
     },
     {
-      label: "Nasarawa",
-      value: "Nasarawa",
+      label: "Nassarawa",
+      value: "Nassarawa",
     },
     {
-      label: "Nasarawa Egon",
-      value: "Nasarawa Egon",
+      label: "Nassarawa Egon",
+      value: "Nassarawa Egon",
     },
     {
       label: "Obi",
