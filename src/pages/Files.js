@@ -336,11 +336,21 @@ export default function Files() {
                               {users?.find((item) => item?.email === createdBy)
                                 ?.reservedOrg ?? "-"}
                             </TableCell>
-                            <TableCell
+                            {/* <TableCell
                               align="left"
                               sx={{ color: "#2ba5d7" }}
                               onClick={() => handleDownloadFile(url)}
-                            >Download</TableCell>
+                            >Download</TableCell> */}
+
+                            <TableCell align="left">
+                              <Button
+                                variant="text"
+                                color="primary"
+                                onClick={() => handleDownloadFile(url)}
+                              >
+                                Download
+                              </Button>
+                            </TableCell>
 
                             {/* <TableCell align="left">
                             {isVerified ? "Yes" : "No"}

@@ -53,9 +53,9 @@ export function UserAuthContextProvider({ children }) {
     };
   }, [auth]);
 
-  // indexDB
+// indexDB
   const handleDownloadFile = (url) => {
-    getDownloadURL(ref(storage, url))
+        getDownloadURL(ref(storage, url))
       .then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
 
@@ -76,8 +76,8 @@ export function UserAuthContextProvider({ children }) {
         // Handle any errors
       });
   };
-
-  return (
+  
+    return (
     <userAuthContext.Provider
       value={{ user, logIn, signUp, logOut, googleSignIn, createUser, db, handleDownloadFile }}
     >
