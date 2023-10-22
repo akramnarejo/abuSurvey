@@ -1,52 +1,44 @@
 import { Helmet } from "react-helmet-async";
 import { filter } from "lodash";
-import { sentenceCase } from "change-case";
-import { useEffect, useState } from "react";
+// import { sentenceCase } from "change-case";
+import { useState } from "react";
 // @mui
 import {
   Card,
   Table,
   Stack,
   Paper,
-  Avatar,
-  Box,
   Button,
   Popover,
-  Checkbox,
   TableRow,
   MenuItem,
   TableBody,
   TableCell,
   Container,
   Typography,
-  IconButton,
   TableContainer,
   TablePagination,
   Skeleton,
 } from "@mui/material";
-// components
-import Label from "../components/label";
 import Iconify from "../components/iconify";
 import Scrollbar from "../components/scrollbar";
 // sections
 import { UserListHead, UserListToolbar } from "../sections/@dashboard/user";
-// mock
-// import surveys from "../_mock/user";
-import SelectSurvey from "src/components/modals/selectSurvey";
 import moment from "moment";
-import { useStore} from "src/store";
-import {deleteSurvey} from "src/store";
+import { useStore } from "src/store";
 import { shallow } from "zustand/shallow";
-import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { useUserAuth } from "src/context";
 import ViewSurveyModal from "src/components/modals/viewModal";
-import { RESERVED_ORGANIZATIONS } from "src/constants";
 import Search from "src/components/search";
+import { CSVLink } from "react-csv";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: "name", label: "Survey Type", alignRight: false },
-  { id: "facilityname", label: "Facility Name", alignRight: false },  
+  { id: "facilityname", label: "Facility Name", alignRight: false },
   { id: "organization", label: "ATM Network", alignRight: false },
   { id: "reservedOrg", label: "Organizations", alignRight: false },
   { id: "started", label: "Started", alignRight: false },
@@ -84,16 +76,33 @@ function applySortFilter(array, comparator, query) {
   if (query) {
     return filter(
       array,
-      (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 || 
-      _user.organization.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      
+      (_user) =>
+        _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+        _user.organization.toLowerCase().indexOf(query.toLowerCase()) !== -1
     );
   }
   return stabilizedThis?.map((el) => el[0]);
 }
 
+const EXPORT_HEADERS = [
+  { label: "Name", key: "name" },
+  { label: "Organization", key: "organization" },
+  { label: "Reserved Organization", key: "reservedOrg" },
+  { label: "Started At", key: "startedAt" },
+  { label: "Submitted At", key: "submittedAt" },
+  { label: "Created By", key: "createdBy" },
+];
+
 export default function Submission() {
-  const { surveys, users, loading, setLoading, fetchSurveys, getSurveys, setNotify, deleteSurvey } = useStore(
+  const {
+    surveys,
+    users,
+    loading,
+    setLoading,
+    getSurveys,
+    setNotify,
+    deleteSurvey,
+  } = useStore(
     (state) => ({
       surveys: state?.surveys,
       loading: state?.loading,
@@ -124,111 +133,148 @@ export default function Submission() {
 
   const [rowsPerPage, setRowsPerPage] = useState(8);
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
 
-  const [filteredSurveys, setFilteredSurveys] = useState(
-    surveys
-  );
-  const [modalData, setModalData] = useState(null)
+  const [filteredSurveys, setFilteredSurveys] = useState(surveys);
+  const [modalData, setModalData] = useState(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
-  const toggleModal = () => setOpen(!open);
-  const toggleSurveyModal = () => setModalOpen(!isModalOpen);
+  // const toggleModal = () => setOpen(!open);
+  // const toggleSurveyModal = () => setModalOpen(!isModalOpen);
 
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
-  };
+  // const handleOpenMenu = (event) => {
+  //   setOpen(event.currentTarget);
+  // };
 
   const handleFilterSurveys = (filters) => {
-    console.log('--------------handling filter: ', filters)
-    const {organizationFilter, reservedOrgFilter, userFilter, dateFrom, dateTo} = filters
+    console.log("--------------handling filter: ", filters);
+    const {
+      organizationFilter,
+      reservedOrgFilter,
+      userFilter,
+      dateFrom,
+      dateTo,
+    } = filters;
     // filter by organization
-    let previewSurveys = surveys
-    if(organizationFilter || reservedOrgFilter|| userFilter || dateFrom || dateTo){
-      
-      if(organizationFilter){
-        previewSurveys = previewSurveys?.filter(item => item?.organization === organizationFilter)
+    let previewSurveys = surveys;
+    if (
+      organizationFilter ||
+      reservedOrgFilter ||
+      userFilter ||
+      dateFrom ||
+      dateTo
+    ) {
+      if (organizationFilter) {
+        previewSurveys = previewSurveys?.filter(
+          (item) => item?.organization === organizationFilter
+        );
       }
-      if(reservedOrgFilter){
-        const usersWithReservedOrg = users?.filter(item => item?.reservedOrg === reservedOrgFilter)?.map(item => item?.email)
-        const reservedOrgSurveys = []
-        previewSurveys?.map(item => {
-          if(usersWithReservedOrg?.includes(item?.createdBy)){
-            reservedOrgSurveys.push(item)
+      if (reservedOrgFilter) {
+        const usersWithReservedOrg = users
+          ?.filter((item) => item?.reservedOrg === reservedOrgFilter)
+          ?.map((item) => item?.email);
+        const reservedOrgSurveys = [];
+        previewSurveys?.map((item) => {
+          if (usersWithReservedOrg?.includes(item?.createdBy)) {
+            reservedOrgSurveys.push(item);
           }
-        })
-        previewSurveys = reservedOrgSurveys
+          return 1;
+        });
+        previewSurveys = reservedOrgSurveys;
       }
-      if(userFilter){
-        previewSurveys = previewSurveys?.filter(item => item?.createdBy === userFilter)
+      if (userFilter) {
+        previewSurveys = previewSurveys?.filter(
+          (item) => item?.createdBy === userFilter
+        );
       }
-      if(dateFrom && dateTo){
-        previewSurveys = previewSurveys?.filter(item => ((new Date(item?.submittedAt).getTime() >= new Date(dateFrom).getTime()) && (new Date(item?.submittedAt).getTime() <= new Date(dateTo).getTime())))
-      }else if(dateFrom){
-        previewSurveys = previewSurveys?.filter(item => (new Date(item?.submittedAt).getTime() >= new Date(dateFrom).getTime()))
-      }else if(dateTo){
-        previewSurveys = previewSurveys?.filter(item => ((new Date(item?.submittedAt).getTime() <= new Date(dateTo).getTime())))
+      if (dateFrom && dateTo) {
+        previewSurveys = previewSurveys?.filter(
+          (item) =>
+            new Date(item?.submittedAt).getTime() >=
+              new Date(dateFrom).getTime() &&
+            new Date(item?.submittedAt).getTime() <= new Date(dateTo).getTime()
+        );
+      } else if (dateFrom) {
+        previewSurveys = previewSurveys?.filter(
+          (item) =>
+            new Date(item?.submittedAt).getTime() >=
+            new Date(dateFrom).getTime()
+        );
+      } else if (dateTo) {
+        previewSurveys = previewSurveys?.filter(
+          (item) =>
+            new Date(item?.submittedAt).getTime() <= new Date(dateTo).getTime()
+        );
       }
-      setFilteredSurveys(previewSurveys)
-    }else{
-      setFilteredSurveys(surveys)
+      setFilteredSurveys(previewSurveys);
+    } else {
+      setFilteredSurveys(surveys);
     }
   };
   const acceptSurvey = async (id) => {
-    setLoading(true)
+    setLoading(true);
     const docRef = doc(db, "surveys", id);
     const data = {
       ...surveys?.find((item) => item?.id === id),
       status: "Approved",
-    }
-    console.log('-----------------data: ', data)
-    await updateDoc(docRef, data)
-
+    };
+    console.log("-----------------data: ", data);
+    await updateDoc(docRef, data);
   };
 
-  const handleAcceptSurvey = id => {
+  const handleAcceptSurvey = (id) => {
     try {
-      acceptSurvey(id).then(() => {
-        setLoading(false)
-        setNotify({ open: true, message: 'Survey accepted successfully!', type: 'success' })
-        getSurveys(surveys?.map(survey => {
-          if(survey?.id === id){
-            return {
-              ...survey,
-              status: 'Approved',
-            }
-          }
-          return survey
-        }))
-      }).catch(() => setLoading(false))
+      acceptSurvey(id)
+        .then(() => {
+          setLoading(false);
+          setNotify({
+            open: true,
+            message: "Survey accepted successfully!",
+            type: "success",
+          });
+          getSurveys(
+            surveys?.map((survey) => {
+              if (survey?.id === id) {
+                return {
+                  ...survey,
+                  status: "Approved",
+                };
+              }
+              return survey;
+            })
+          );
+        })
+        .catch(() => setLoading(false));
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
   const handleViewSurvey = (id, name) => {
-    setModalData({surveyId: id, name: name});
+    setModalData({ surveyId: id, name: name });
     setEditModalOpen(!isEditModalOpen);
   };
 
-// Define the handleDeleteSurvey function
-const handleDeleteSurvey = async (id, name) => {
-  if (window.confirm(`Are you sure you want to delete this survey ?`)) {
-    try {
-      await deleteSurvey(db, id);
+  // Define the handleDeleteSurvey function
+  const handleDeleteSurvey = async (id, name) => {
+    if (window.confirm(`Are you sure you want to delete this survey ?`)) {
+      try {
+        await deleteSurvey(db, id);
 
-      // Handle success, show a notification, or update the UI as needed
-      setNotify({ open: true, message: `Survey "${id}" deleted successfully!`, type: 'success' });
+        // Handle success, show a notification, or update the UI as needed
+        setNotify({
+          open: true,
+          message: `Survey "${id}" deleted successfully!`,
+          type: "success",
+        });
 
-      // You may also want to refresh the list of surveys after deletion
-      // You can call the fetchSurveys function or update your state here.
-    } catch (error) {
-      // Handle errors here, show an error message, or log the error
-      console.error('Error deleting survey:', error);
+        // You may also want to refresh the list of surveys after deletion
+        // You can call the fetchSurveys function or update your state here.
+      } catch (error) {
+        // Handle errors here, show an error message, or log the error
+        console.error("Error deleting survey:", error);
+      }
     }
-  }
-};
-
-
+  };
 
   const handleCloseMenu = () => {
     setOpen(null);
@@ -249,23 +295,23 @@ const handleDeleteSurvey = async (id, name) => {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected?.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
+  // const handleClick = (event, name) => {
+  //   const selectedIndex = selected.indexOf(name);
+  //   let newSelected = [];
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(selected, name);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(selected.slice(1));
+  //   } else if (selectedIndex === selected?.length - 1) {
+  //     newSelected = newSelected.concat(selected.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(
+  //       selected.slice(0, selectedIndex),
+  //       selected.slice(selectedIndex + 1)
+  //     );
+  //   }
+  //   setSelected(newSelected);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -319,14 +365,49 @@ const handleDeleteSurvey = async (id, name) => {
             Submissions
           </Typography>
         </Stack>
-
-          <UserListToolbar
-            numSelected={selected?.length}
-            handleFilterSurveys={handleFilterSurveys}
-            filteredSurveys={filteredSurveys}
-          />
+        <Stack 
+        direction="row"
+        alignItems="flex-end"
+        justifyContent="space-between"
+        mb={5}>
+        <UserListToolbar
+          numSelected={selected?.length}
+          handleFilterSurveys={handleFilterSurveys}
+          filteredSurveys={filteredSurveys}
+        />
+        <div>
+          <CSVLink
+            data={
+              filteredUsers?.length
+                ? filteredUsers?.map((item) => {
+                    return {
+                      ...item,
+                      reservedOrg:
+                        users?.find((user) => user?.email === item?.createdBy)
+                          ?.reservedOrg ?? "-",
+                      startedAt: item?.startedAt
+                        ? moment(item?.startedAt).format("lll")
+                        : "-",
+                      submittedAt: item?.submittedAt
+                        ? moment(item?.submittedAt).format("lll")
+                        : "-",
+                    };
+                  })
+                : []
+            }
+            headers={EXPORT_HEADERS}
+          >
+            <Button variant="outlined" endIcon={<FileDownloadOutlinedIcon />}>
+              Export
+            </Button>
+          </CSVLink>
+        </div>
+        </Stack>
         <Card>
-        <Search filterName={filterName} handleFilterByName={handleFilterByName}/>
+          <Search
+            filterName={filterName}
+            handleFilterByName={handleFilterByName}
+          />
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
@@ -402,11 +483,9 @@ const handleDeleteSurvey = async (id, name) => {
                           id,
                           name,
                           organization,
-                          reservedOrg,
                           startedAt,
                           status,
                           submittedAt,
-                          avatarUrl,
                           data,
                           createdBy,
                         } = row;
@@ -426,23 +505,26 @@ const handleDeleteSurvey = async (id, name) => {
                             />
                           </TableCell> */}
 
-                          
                             <TableCell component="th" scope="row">
                               <Stack
                                 direction="row"
                                 alignItems="center"
                                 spacing={2}
                               >
-                                
                                 {/* <Avatar alt={name} src={avatarUrl} /> */}
                                 <Typography variant="subtitle2" noWrap>
                                   {name}
                                 </Typography>
                               </Stack>
                             </TableCell>
-                            <TableCell align="left">{JSON.parse(data)?.facilityname ?? "-"}</TableCell>
+                            <TableCell align="left">
+                              {JSON.parse(data)?.facilityname ?? "-"}
+                            </TableCell>
                             <TableCell align="left">{organization}</TableCell>
-                            <TableCell align="left">{users?.find(item => item?.email === createdBy)?.reservedOrg ?? "-"}</TableCell>
+                            <TableCell align="left">
+                              {users?.find((item) => item?.email === createdBy)
+                                ?.reservedOrg ?? "-"}
+                            </TableCell>
                             <TableCell align="left">
                               {startedAt && moment(startedAt).format("lll")}
                             </TableCell>
@@ -471,22 +553,24 @@ const handleDeleteSurvey = async (id, name) => {
 
                             <TableCell sx={{ padding: "5px 0px" }}>
                               <Stack gap={0.5}>
-                                {
-                                  status === 'Approved' ? (<Button
+                                {status === "Approved" ? (
+                                  <Button
                                     variant="contained"
                                     color="info"
                                     disabled={true}
                                     onClick={() => handleAcceptSurvey(id)}
                                   >
                                     Accepted
-                                  </Button>) : (<Button
-                                  variant="contained"
-                                  color="info"
-                                  onClick={() => handleAcceptSurvey(id)}
-                                >
-                                  Accept
-                                </Button>)
-                                }
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    variant="contained"
+                                    color="info"
+                                    onClick={() => handleAcceptSurvey(id)}
+                                  >
+                                    Accept
+                                  </Button>
+                                )}
                                 <Button
                                   variant="outlined"
                                   color="info"
