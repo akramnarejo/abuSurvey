@@ -21,9 +21,12 @@ const Visualization = () => {
         const options = {};
         item?.options?.map((val) => {
           options[val] = 0;
+          return 1;
         });
         surveyQuestions[item?.question] = { title: item?.title, options };
+        return 1;
       });
+      
       const selectedSurveys = surveys?.filter(
         (item) => item?.name === survey?.label
       );
@@ -47,6 +50,7 @@ const Visualization = () => {
                       },
                     },
                   };
+                  return 1;
                 });
               } else {
                 surveyQuestions = {
@@ -61,11 +65,14 @@ const Visualization = () => {
                 };
               }
             }
+            return 1;
           });
+          return 1;
         });
       }
       setQuestions(surveyQuestions);
     }
+    // eslint-disable-next-line
   }, [survey]);
   
   return (
