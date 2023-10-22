@@ -77,9 +77,9 @@ const Visualization = () => {
         value={survey}
         onChange={(e) => setSurvey(e)}
       />
-      <p>Total Surveys: {surveys?.filter(
+      {survey && <p>Total Surveys: {surveys?.filter(
         (item) => item?.name === survey?.label
-      )?.length}</p>
+      )?.length}</p>}
       {Object.keys(questions)?.map((item, index) => {
 
         return (
