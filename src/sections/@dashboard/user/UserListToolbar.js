@@ -183,7 +183,7 @@ export default function UserListToolbar({
               <Box sx={{ width: "100%", height: "40px" }}>
                 <Select
                   name="atmNetwork"
-                  placeholder="ATM Network"
+                  placeholder="ATM Networks"
                   isClearable
                   options={ORGANIZATIONS?.map((item) => ({
                     label: item.label,
