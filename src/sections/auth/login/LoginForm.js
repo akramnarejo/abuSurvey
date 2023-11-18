@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // @mui
 import {
@@ -21,20 +21,25 @@ import { shallow } from "zustand/shallow";
 const getUserName = (email) => email?.split("@")[0];
 export default function LoginForm() {
   const navigate = useNavigate();
-  const { logIn } = useUserAuth();
+  const { logIn, db } = useUserAuth();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { setUserInfo, users } = useStore(
+  const { setUserInfo, users, getUsers } = useStore(
     (state) => ({
       setUserInfo: state?.setUserInfo,
       users: state?.users,
+      getUsers: state?.getUsers,
     }),
     shallow
   );
+
+  useEffect(() => {
+    getUsers(db)
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,14 +49,16 @@ export default function LoginForm() {
       await logIn(email, password);
       setLoading(false);
       const user = users?.find((item) => item?.email === email);
-      setUserInfo({
-        isAdmin: user?.role === "super-admin" ? true : false,
-        email,
-        role: user?.role,
-        state: user?.state,
-        name: user?.firstName + " " + user?.lastName,
-        organization: user?.organization,
-      });
+      if(user){
+        setUserInfo({
+          isAdmin: user?.role === "super-admin" ? true : false,
+          email,
+          role: user?.role,
+          state: user?.state,
+          name: user?.firstName + " " + user?.lastName,
+          organization: user?.organization,
+        });
+      }
       if (user?.status !== "active") {
         setError("Your account is suspended!");
         setLoading(false);
