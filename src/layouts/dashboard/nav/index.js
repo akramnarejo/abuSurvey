@@ -61,6 +61,7 @@ export default function Nav({ openNav, onCloseNav }) {
   const handleLogout = async () => {
     try {
       await logOut();
+      localStorage.clear();
       navigate("/login", { replace: true });
     } catch (error) {
       console.log(error);
