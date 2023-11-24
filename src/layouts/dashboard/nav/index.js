@@ -101,7 +101,7 @@ export default function Nav({ openNav, onCloseNav }) {
         >
           <Logo />
           <Typography variant="h4">
-            {userInfo?.organization?.toUpperCase()} NETWORK
+            {userInfo?.organization?.toUpperCase()} ATM NETWORKS
           </Typography>
         </Box>
         {/* </Box> */}
