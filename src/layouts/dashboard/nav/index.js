@@ -61,6 +61,7 @@ export default function Nav({ openNav, onCloseNav }) {
   const handleLogout = async () => {
     try {
       await logOut();
+      localStorage.clear();
       navigate("/login", { replace: true });
     } catch (error) {
       console.log(error);
@@ -101,7 +102,7 @@ export default function Nav({ openNav, onCloseNav }) {
         >
           <Logo />
           <Typography variant="h4">
-            {userInfo?.organization?.toUpperCase()} NETWORK
+            {userInfo?.organization?.toUpperCase()} ATM NETWORKS
           </Typography>
         </Box>
         {/* </Box> */}

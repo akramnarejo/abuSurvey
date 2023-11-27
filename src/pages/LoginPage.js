@@ -53,7 +53,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> Login | NEPWHAN </title>
+        <title> Login | ATM NETWORK </title>
       </Helmet>
 
       <StyledRoot>
