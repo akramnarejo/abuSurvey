@@ -514,7 +514,7 @@ export default function UserPage() {
           <TablePagination
             rowsPerPageOptions={[8, 15, 25, 50, 100]}
             component="div"
-            count={surveys?.length}
+            count={filteredUsers?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

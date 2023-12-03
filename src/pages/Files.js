@@ -96,6 +96,7 @@ export default function Files() {
     getSurveys,
     setNotify,
     files,
+    userInfo,
   } = useStore(
     (state) => ({
       surveys: state?.surveys,
@@ -106,6 +107,7 @@ export default function Files() {
       setNotify: state?.setNotify,
       users: state?.users,
       files: state?.files,
+      userInfo: state?.userInfo,
     }),
     shallow
   );
@@ -128,7 +130,7 @@ export default function Files() {
 
   const [rowsPerPage, setRowsPerPage] = useState(8);
 
-  const [filteredSurveys, setFilteredSurveys] = useState(files);
+  const [filteredSurveys, setFilteredSurveys] = useState(() => userInfo?.role === 'user' ? files?.filter(item => item?.createdBy === userInfo?.email) : files);
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -198,6 +200,14 @@ export default function Files() {
 
   const isNotFound =
     (!filteredUsers?.length && !!filterName) || filteredSurveys?.length === 0;
+
+  const getReservedOrg = email => {
+    const user = users?.find((item) => item?.email === email)
+    if(user?.reservedOrg){
+      return user?.reservedOrg 
+    }
+    return "-"              
+  }
 
   return (
     <>
@@ -299,7 +309,6 @@ export default function Files() {
                           url,
                           name,
                           organization,
-                          reservedOrg,
                           createdBy,
                         } = row;
                         const selectedUser = selected.indexOf(id) !== -1;
@@ -333,14 +342,13 @@ export default function Files() {
                             <TableCell align="left">{createdBy}</TableCell>
                             <TableCell align="left">{organization}</TableCell>
                             <TableCell align="left">
-                              {users?.find((item) => item?.email === createdBy)
-                                ?.reservedOrg ?? "-"}
+                              {getReservedOrg(createdBy)}
                             </TableCell>
                             <TableCell
                               align="left"
                               sx={{ color: "#2ba5d7" }}
-                              onClick={() => handleDownloadFile(url)}
-                            >Download</TableCell>
+                              // onClick={() => handleDownloadFile(url)}
+                            ><a href={url} target="_blank" alt={name}>Download</a></TableCell>
 
                             {/* <TableCell align="left">
                             {isVerified ? "Yes" : "No"}
@@ -429,7 +437,7 @@ export default function Files() {
           <TablePagination
             rowsPerPageOptions={[8, 15, 25]}
             component="div"
-            count={filteredSurveys?.length}
+            count={filteredUsers?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -15,11 +15,11 @@ import { shallow } from "zustand/shallow";
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
-  const [user, setUser] = useState({});
 
-  const { setLoading } = useStore(
+  const { setLoading, setUserInfo } = useStore(
     (state) => ({
       setLoading: state?.setLoading,
+      setUserInfo: state?.setUserInfo,
     }),
     shallow
   );
@@ -45,7 +45,7 @@ export function UserAuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log("Auth", currentuser);
-      setUser(currentuser);
+      setUserInfo({isAuthenticated: currentuser?.accessToken ? true : false})
     });
 
     return () => {
@@ -79,7 +79,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp, logOut, googleSignIn, createUser, db, handleDownloadFile }}
+      value={{ logIn, signUp, logOut, googleSignIn, createUser, db, handleDownloadFile }}
     >
       {children}
     </userAuthContext.Provider>

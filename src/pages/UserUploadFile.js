@@ -9,10 +9,11 @@ import { Input } from '@mui/material';
 import { LoadingButton } from "@mui/lab";
 
 function FileUpload() {
-  const { userInfo, setNotify } = useStore(
+  const { userInfo, setNotify, setFiles } = useStore(
     (state) => ({
       userInfo: state?.userInfo,
       setNotify: state?.setNotify,
+      setFiles: state?.setFiles,
     }),
     shallow
   );
@@ -60,6 +61,7 @@ function FileUpload() {
     try {
       console.log("-------------details: ", fileDetails, userInfo)
       await addDoc(collection(db, "files"), fileDetails);
+      setFiles(fileDetails)
       setNotify({ open: true, message: 'File uploaded successfully!', type: 'success' })
       fileRef.current.value = null
       setFile(null)
