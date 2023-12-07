@@ -53,10 +53,10 @@ const Visualization = () => {
         );
       }
       if(dateFrom){
-        selectedSurveys = selectedSurveys.filter(item => item?.startedAt.split('T')?.[0] === (dateFrom))
+        selectedSurveys = selectedSurveys.filter(item => new Date(item?.startedAt.split('T')?.[0]) >= new Date(dateFrom))
       }
       if(dateTo){
-        selectedSurveys = selectedSurveys.filter(item => item?.submittedAt.split('T')?.[0] === (dateFrom))
+        selectedSurveys = selectedSurveys.filter(item => new Date(item?.submittedAt.split('T')?.[0]) <= new Date(dateTo))
       }
 
       // surveys count
