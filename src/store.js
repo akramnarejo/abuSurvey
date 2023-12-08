@@ -10,6 +10,7 @@ let useStore = (set, get) => ({
     isAdmin: false,
     name: "",
     email: "",
+    isAuthenticated: false,
   },
   users: [],
   loadSurveys: false,
@@ -73,7 +74,7 @@ let useStore = (set, get) => ({
     return data;
     // set(() => {})
   },
-  
+  setFiles: file => set(() => ({files: [...get()?.files, file]})),
   fetchUsers: async (db) => {
     const data = await getDocs(collection(db, "users"));
     return data;
@@ -84,28 +85,6 @@ let useStore = (set, get) => ({
     const data = await getDocs(collection(db, 'surveys'));
     return data;
   },
-  // fetchSurveys: async (db) => {
-  //   set(() => ({ loading: true }));
-  //   const data = await getDocs(collection(db, 'surveys'));
-  //   const surveysFetched = data.docs.map((surveyDoc) => {
-  //     const surveyData = surveyDoc.data();
-  //     return {
-  //       id: surveyDoc.id,
-  //       name: surveyData.name,
-  //       organization: surveyData.organization,
-  //       reservedOrg: surveyData.reservedOrg, // Ensure that reservedOrg is directly assigned
-  //       startedAt: surveyData.startedAt,
-  //       status: surveyData.status,
-  //       //submittedAt: surveyData.submittedAt,
-  //       //avatarUrl: surveyData.avatarUrl,
-  //       data: surveyData.data,
-  //     };
-  //   });
-  //   set(() => ({ surveys: surveysFetched, loading: false }));
-  //   return data;
-  // },
-  
-
 
   deleteUser: async (db, document, uid) => {
     set(() => ({loading: true}))
@@ -122,18 +101,6 @@ let useStore = (set, get) => ({
     await deleteDoc(doc(db, 'surveys', id));
     set(() => ({ loading: false }));
   },
-
-  //Abubakar: Added deleteSurvey function
-  // deleteSurvey: async (db, id) => {
-  //   set(() => ({ loading: true }));
-  //   // Update local state to remove the deleted survey
-  //   set(() => ({
-  //     surveys: get().surveys.filter(survey => survey.id !== id)
-  //   }));
-  //   await deleteDoc(doc(db, 'surveys', id));
-  //   set(() => ({ loading: false }));
-  // },
-
 
   updateUser: async (db, document, data) => {
     set(() => ({loading: true}))
