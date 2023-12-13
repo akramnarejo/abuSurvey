@@ -376,6 +376,12 @@ export const RESERVED_ORGANIZATIONS = {
       label: "Environmental Development and Family Health Organization ",
       value: "EDFH",
     },
+
+    {
+      label: "Acomin Default",
+      value: "Acomin Default",
+    },
+
     {
       label:
         "Society For Woman and AIDs in Africa, Nigeria, Ekiti State Chapter  ",
